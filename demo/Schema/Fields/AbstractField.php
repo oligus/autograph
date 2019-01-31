@@ -1,6 +1,6 @@
 <?php
 
-namespace Demo\Schema\Fields;
+namespace Autograph\Demo\Schema\Fields;
 
 abstract class AbstractField
 {

@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Types\Inputs;
+namespace Autograph\Demo\Schema\Types\Inputs;
 
-use Demo\Schema\Fields\Field;
-use Demo\Schema\TypeManager;
-use Demo\Schema\AppContext;
+use Autograph\Demo\Schema\Fields\Field;
+use Autograph\Demo\Schema\TypeManager;
+use Autograph\Demo\Schema\AppContext;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\InputObjectType;
 
 
 /**
  * Class PostInputType
- * @package Demo\Schema\Fields\Mutation
+ * @package Autograph\Demo\Schema\Fields\Mutation
  */
 class PostInputType extends InputObjectType
 {

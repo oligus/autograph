@@ -1,19 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Fields;
+namespace Autograph\Demo\Schema\Fields;
 
-use Demo\Database\Entities\Comment;
-use Demo\Schema\TypeManager;
-use Demo\Schema\AppContext;
-use Demo\Database\Manager;
-use Demo\Helpers\ClassHelper;
-use Demo\Schema\Query\Filter;
-use Demo\Schema\Query\FilterDoctrineCollection;
+use Autograph\Demo\Database\Entities\Comment;
+use Autograph\Demo\Schema\TypeManager;
+use Autograph\Demo\Schema\AppContext;
+use Autograph\Demo\Database\Manager;
+use Autograph\Demo\Helpers\ClassHelper;
+use Autograph\Demo\Schema\Query\Filter;
+use Autograph\Demo\Schema\Query\FilterDoctrineCollection;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
  * Class Comments
- * @package Demo\Schema\Fields
+ * @package Autograph\Demo\Schema\Fields
  */
 class Comments implements Field
 {
@@ -95,7 +95,7 @@ class Comments implements Field
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = Manager::getInstance()->getEm();
 
-        /** @var \Demo\Database\Repositories\CommonRepository $repo*/
+        /** @var \Autograph\Demo\Database\Repositories\CommonRepository $repo*/
         $repo = $em->getRepository(Comment::class);
 
         return $repo->getCount();
@@ -107,7 +107,7 @@ class Comments implements Field
      */
     public static function getData(array $args)
     {
-        /** @var \Demo\Database\Repositories\CommonRepository $repo */
+        /** @var \Autograph\Demo\Database\Repositories\CommonRepository $repo */
         $repo = Manager::getInstance()->getEm()->getRepository(Comment::class);
         return $repo->filter($args);
     }

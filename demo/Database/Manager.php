@@ -1,13 +1,13 @@
 <?php
 
-namespace Demo\Database;
+namespace Autograph\Demo\Database;
 
-use Demo\Schema\Query\FilterCollection;
+use Autograph\Demo\Schema\Query\FilterCollection;
 use Doctrine\ORM\EntityManager;
 
 /**
  * Class Manager
- * @package Demo\Database
+ * @package Autograph\Demo\Database
  */
 class Manager
 {

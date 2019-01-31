@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema;
+namespace Autograph\Demo\Schema;
 
-use Demo\Schema\Types\QueryType;
+use Autograph\Demo\Schema\Types\QueryType;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\Type;
@@ -11,7 +11,7 @@ use GraphQL\Type\Definition\InputObjectType;
 
 /**
  * Class TypeManager
- * @package Demo\Schema
+ * @package Autograph\Demo\Schema
  */
 class TypeManager
 {
@@ -50,7 +50,7 @@ class TypeManager
             return self::$types[$typeName];
         }
 
-        $field = 'Demo\Schema\Types\\' . ucfirst($typeName);
+        $field = 'Autograph\Demo\Schema\Types\\' . ucfirst($typeName);
         self::$types[$typeName] = new $field;
 
         return self::$types[$typeName];
@@ -66,7 +66,7 @@ class TypeManager
             return self::$inputTypes[$typeName];
         }
 
-        $inputType = 'Demo\Schema\Types\Inputs\\' . ucfirst($typeName);
+        $inputType = 'Autograph\Demo\Schema\Types\Inputs\\' . ucfirst($typeName);
 
         self::$inputTypes[$typeName] = new $inputType;
 

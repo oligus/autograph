@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Fields\Mutation;
+namespace Autograph\Demo\Schema\Fields\Mutation;
 
-use Demo\Schema\Fields\Field;
-use Demo\Database\Entities\Post;
-use Demo\Database\Manager;
-use Demo\Schema\TypeManager;
-use Demo\Schema\AppContext;
+use Autograph\Demo\Schema\Fields\Field;
+use Autograph\Demo\Database\Entities\Post;
+use Autograph\Demo\Database\Manager;
+use Autograph\Demo\Schema\TypeManager;
+use Autograph\Demo\Schema\AppContext;
 use GraphQL\Type\Definition\ResolveInfo;
-use Demo\Helpers\ClassHelper;
+use Autograph\Demo\Helpers\ClassHelper;
 
 /**
  * Class DeletePost
- * @package Demo\Schema\Fields\Mutation
+ * @package Autograph\Demo\Schema\Fields\Mutation
  */
 class DeletePost
 {
@@ -48,7 +48,7 @@ class DeletePost
 
         $post = Manager::getInstance()
             ->getEm()
-            ->getRepository('Demo\Database\Entities\Post')
+            ->getRepository('Autograph\Demo\Database\Entities\Post')
             ->find($id);
 
         if(!$post instanceof Post) {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Demo\Database\Entities;
+namespace Autograph\Demo\Database\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity(repositoryClass="Demo\Database\Repositories\CommonRepository")
+ * @ORM\Entity(repositoryClass="Autograph\Demo\Database\Repositories\CommonRepository")
  * @ORM\Table(name="authors")
  */
 class Author

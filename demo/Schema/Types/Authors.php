@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Types;
+namespace Autograph\Demo\Schema\Types;
 
-use Demo\Schema\TypeManager;
+use Autograph\Demo\Schema\TypeManager;
 use GraphQL\Type\Definition\ObjectType;
 
 /**
  * Class Authors
- * @package Demo\Schema\Types
+ * @package Autograph\Demo\Schema\Types
  */
 class Authors extends ObjectType
 {

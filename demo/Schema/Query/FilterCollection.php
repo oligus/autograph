@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Query;
+namespace Autograph\Demo\Schema\Query;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Demo\Database\Repositories;
+namespace Autograph\Demo\Database\Repositories;
 
 use Doctrine\ORM\Query\ResultSetMapping;
 

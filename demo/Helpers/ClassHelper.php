@@ -1,6 +1,6 @@
 <?php
 
-namespace Demo\Helpers;
+namespace Autograph\Demo\Helpers;
 
 /**
  * Class ClassHelper

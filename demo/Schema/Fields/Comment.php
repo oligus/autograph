@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Fields;
+namespace Autograph\Demo\Schema\Fields;
 
-use Demo\Database\Entities\Comment as CommentEntity;
-use Demo\Schema\TypeManager;
-use Demo\Schema\AppContext;
-use Demo\Database\Manager;
-use Demo\Helpers\ClassHelper;
+use Autograph\Demo\Database\Entities\Comment as CommentEntity;
+use Autograph\Demo\Schema\TypeManager;
+use Autograph\Demo\Schema\AppContext;
+use Autograph\Demo\Database\Manager;
+use Autograph\Demo\Helpers\ClassHelper;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
  * Class Comment
- * @package Demo\Schema\Fields
+ * @package Autograph\Demo\Schema\Fields
  */
 class Comment implements Field
 {

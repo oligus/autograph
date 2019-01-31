@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Demo;
+namespace Autograph\Demo;
 
-use Demo\Schema\AppContext;
-use Demo\Schema\Types\MutationType;
-use Demo\Schema\Types\QueryType;
-use Demo\Helpers\JsonHelper;
+use Autograph\Demo\Schema\AppContext;
+use Autograph\Demo\Schema\Types\MutationType;
+use Autograph\Demo\Schema\Types\QueryType;
+use Autograph\Demo\Helpers\JsonHelper;
 use GraphQL\GraphQL;
 use GraphQL\Type\Schema;
 use GraphQL\Error\Debug;

@@ -9,10 +9,10 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Demo\Database\Manager;
-use Demo\Request;
-use Demo\Helpers\ErrorHelper;
-use Demo\Schema\Query\FilterCollection;
+use Autograph\Demo\Database\Manager;
+use Autograph\Demo\Request;
+use Autograph\Demo\Helpers\ErrorHelper;
+use Autograph\Demo\Schema\Query\FilterCollection;
 
 $paths = array(realpath(__DIR__ . 'Database/Entities'));
 
@@ -30,7 +30,6 @@ $config->setMetadataDriverImpl($driver);
 
 $em = EntityManager::create($connectionParams, $config);
 
-$manager = Manager::getInstance();
 $manager = Manager::getInstance();
 $manager->setEm($em);
 $manager->setFilterCollection(new FilterCollection());

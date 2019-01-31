@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Types;
+namespace Autograph\Demo\Schema\Types;
 
 use GraphQL\Type\Definition\ObjectType;
-use Demo\Schema\Fields\Mutation\CreateAuthor;
-use Demo\Schema\Fields\Mutation\CreateComment;
-use Demo\Schema\Fields\Mutation\CreatePost;
-use Demo\Schema\Fields\Mutation\DeleteAuthor;
-use Demo\Schema\Fields\Mutation\DeleteComment;
-use Demo\Schema\Fields\Mutation\DeletePost;
-use Demo\Schema\Fields\Mutation\UpdateAuthor;
-use Demo\Schema\Fields\Mutation\UpdateComment;
-use Demo\Schema\Fields\Mutation\UpdatePost;
+use Autograph\Demo\Schema\Fields\Mutation\CreateAuthor;
+use Autograph\Demo\Schema\Fields\Mutation\CreateComment;
+use Autograph\Demo\Schema\Fields\Mutation\CreatePost;
+use Autograph\Demo\Schema\Fields\Mutation\DeleteAuthor;
+use Autograph\Demo\Schema\Fields\Mutation\DeleteComment;
+use Autograph\Demo\Schema\Fields\Mutation\DeletePost;
+use Autograph\Demo\Schema\Fields\Mutation\UpdateAuthor;
+use Autograph\Demo\Schema\Fields\Mutation\UpdateComment;
+use Autograph\Demo\Schema\Fields\Mutation\UpdatePost;
 
 /**
  * Class QueryType

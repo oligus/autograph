@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Query;
+namespace Autograph\Demo\Schema\Query;
 
 use Doctrine\Common\Collections\Collection;
 
 /**
  * Class FilterDoctrineCollection
- * @package Demo\Schema\Query
+ * @package Autograph\Demo\Schema\Query
  */
 class FilterDoctrineCollection
 {

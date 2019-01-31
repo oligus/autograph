@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Database\Repositories;
+namespace Autograph\Demo\Database\Repositories;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class CommonRepository
- * @package Demo\Database\Repositories
+ * @package Autograph\Demo\Database\Repositories
  */
 class CommonRepository extends EntityRepository
 {

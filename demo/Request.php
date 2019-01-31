@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Demo;
+namespace Autograph\Demo;
 
 /**
  * Class Request

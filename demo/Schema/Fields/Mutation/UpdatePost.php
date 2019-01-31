@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Fields\Mutation;
+namespace Autograph\Demo\Schema\Fields\Mutation;
 
-use Demo\Schema\Fields\Field;
-use Demo\Database\Entities\Author;
-use Demo\Database\Manager;
-use Demo\Schema\TypeManager;
-use Demo\Schema\AppContext;
+use Autograph\Demo\Schema\Fields\Field;
+use Autograph\Demo\Database\Entities\Author;
+use Autograph\Demo\Database\Manager;
+use Autograph\Demo\Schema\TypeManager;
+use Autograph\Demo\Schema\AppContext;
 use GraphQL\Type\Definition\ResolveInfo;
-use Demo\Helpers\ClassHelper;
+use Autograph\Demo\Helpers\ClassHelper;
 
 /**
  * Class UpdateAuthor
- * @package Demo\Schema\Fields\Mutation
+ * @package Autograph\Demo\Schema\Fields\Mutation
  */
 class UpdatePost implements Field
 {
@@ -52,7 +52,7 @@ class UpdatePost implements Field
         /** @var Author $author */
         $author = Manager::getInstance()
             ->getEm()
-            ->getRepository('Demo\Database\Entities\Author')
+            ->getRepository('Autograph\Demo\Database\Entities\Author')
             ->find( (int) $args['id']);
 
         $author->setName($args['name']);

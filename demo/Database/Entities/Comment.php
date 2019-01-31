@@ -1,11 +1,11 @@
 <?php
 
-namespace Demo\Database\Entities;
+namespace Autograph\Demo\Database\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Demo\Database\Repositories\CommonRepository")
+ * @ORM\Entity(repositoryClass="Autograph\Demo\Database\Repositories\CommonRepository")
  * @ORM\Table(name="comments")
  */
 class Comment

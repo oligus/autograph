@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Fields;
+namespace Autograph\Demo\Schema\Fields;
 
-use Demo\Database\Entities\Post as PostEntity;
-use Demo\Schema\TypeManager;
-use Demo\Schema\AppContext;
-use Demo\Database\Manager;
-use Demo\Helpers\ClassHelper;
+use Autograph\Demo\Database\Entities\Post as PostEntity;
+use Autograph\Demo\Schema\TypeManager;
+use Autograph\Demo\Schema\AppContext;
+use Autograph\Demo\Database\Manager;
+use Autograph\Demo\Helpers\ClassHelper;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
  * Class Post
- * @package Demo\Schema\Fields
+ * @package Autograph\Demo\Schema\Fields
  */
 class Post implements Field
 {

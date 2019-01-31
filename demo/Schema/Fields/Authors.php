@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Fields;
+namespace Autograph\Demo\Schema\Fields;
 
-use Demo\Database\Entities\Author;
-use Demo\Schema\TypeManager;
-use Demo\Schema\AppContext;
-use Demo\Database\Manager;
-use Demo\Helpers\ClassHelper;
-use Demo\Schema\Query\Filter;
+use Autograph\Demo\Database\Entities\Author;
+use Autograph\Demo\Schema\TypeManager;
+use Autograph\Demo\Schema\AppContext;
+use Autograph\Demo\Database\Manager;
+use Autograph\Demo\Helpers\ClassHelper;
+use Autograph\Demo\Schema\Query\Filter;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
  * Class Authors
- * @package Demo\Schema\Fields
+ * @package Autograph\Demo\Schema\Fields
  */
 class Authors implements Field
 {
@@ -94,7 +94,7 @@ class Authors implements Field
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = Manager::getInstance()->getEm();
 
-        /** @var \Demo\Database\Repositories\CommonRepository $repo*/
+        /** @var \Autograph\Demo\Database\Repositories\CommonRepository $repo*/
         $repo = $em->getRepository(Author::class);
 
         return $repo->getCount();
@@ -106,7 +106,7 @@ class Authors implements Field
      */
     public static function getData(array $args)
     {
-        /** @var \Demo\Database\Repositories\CommonRepository $repo */
+        /** @var \Autograph\Demo\Database\Repositories\CommonRepository $repo */
         $repo = Manager::getInstance()->getEm()->getRepository(Author::class);
         return $repo->filter($args);
     }

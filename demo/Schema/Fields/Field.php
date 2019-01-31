@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Fields;
+namespace Autograph\Demo\Schema\Fields;
 
-use Demo\Schema\AppContext;
+use Autograph\Demo\Schema\AppContext;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**

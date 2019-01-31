@@ -1,19 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Fields;
+namespace Autograph\Demo\Schema\Fields;
 
-use Demo\Database\Entities\Post;
-use Demo\Schema\TypeManager;
-use Demo\Schema\AppContext;
-use Demo\Database\Manager;
-use Demo\Helpers\ClassHelper;
-use Demo\Schema\Query\Filter;
-use Demo\Schema\Query\FilterDoctrineCollection;
+use Autograph\Demo\Database\Entities\Post;
+use Autograph\Demo\Schema\TypeManager;
+use Autograph\Demo\Schema\AppContext;
+use Autograph\Demo\Database\Manager;
+use Autograph\Demo\Helpers\ClassHelper;
+use Autograph\Demo\Schema\Query\Filter;
+use Autograph\Demo\Schema\Query\FilterDoctrineCollection;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
  * Class Posts
- * @package Demo\Schema\Fields
+ * @package Autograph\Demo\Schema\Fields
  */
 class Posts implements Field
 {
@@ -91,7 +91,7 @@ class Posts implements Field
      */
     public static function getData(array $args)
     {
-        /** @var \Demo\Database\Repositories\CommonRepository $repo */
+        /** @var \Autograph\Demo\Database\Repositories\CommonRepository $repo */
         $repo = Manager::getInstance()->getEm()->getRepository(Post::class);
         return $repo->filter($args);
     }
@@ -105,7 +105,7 @@ class Posts implements Field
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = Manager::getInstance()->getEm();
 
-        /** @var \Demo\Database\Repositories\CommonRepository $repo */
+        /** @var \Autograph\Demo\Database\Repositories\CommonRepository $repo */
         $repo = $em->getRepository(Post::class);
 
         return $repo->getCount();

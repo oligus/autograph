@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Types;
+namespace Autograph\Demo\Schema\Types;
 
-use Demo\Schema\Fields;
+use Autograph\Demo\Schema\Fields;
 use GraphQL\Type\Definition\ObjectType;
 
-/**ç
+/**
  * Class QueryType
- * @package Demo\Schema\Types
+ * @package Autograph\Demo\Schema\Types
  */
 class QueryType extends ObjectType
 {

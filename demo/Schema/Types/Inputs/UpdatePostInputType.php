@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Types\Inputs;
+namespace Autograph\Demo\Schema\Types\Inputs;
 
-use Demo\Schema\TypeManager;
+use Autograph\Demo\Schema\TypeManager;
 use GraphQL\Type\Definition\InputObjectType;
 
 /**
  * Class UpdatePostInputType
- * @package Demo\Schema\Types\Inputs
+ * @package Autograph\Demo\Schema\Types\Inputs
  */
 class UpdatePostInputType extends InputObjectType
 {

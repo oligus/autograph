@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Types;
+namespace Autograph\Demo\Schema\Types;
 
 use GraphQL\Type\Definition\ObjectType;
-use Demo\Schema\TypeManager;
-use Demo\Schema\Fields\Author;
-use Demo\Schema\Fields\Comments;
+use Autograph\Demo\Schema\TypeManager;
+use Autograph\Demo\Schema\Fields\Author;
+use Autograph\Demo\Schema\Fields\Comments;
 
 /**
  * Class Post
- * @package Demo\Schema\Types
+ * @package Autograph\Demo\Schema\Types
  */
 class Post extends ObjectType
 {

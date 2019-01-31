@@ -1,12 +1,12 @@
 <?php
 
-namespace Demo\Database\Entities;
+namespace Autograph\Demo\Database\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Demo\Database\Repositories\PostRepository")
+ * @ORM\Entity(repositoryClass="Autograph\Demo\Database\Repositories\PostRepository")
  * @ORM\Table(name="posts")
  */
 class Post

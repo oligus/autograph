@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Autograph\Demo\Helpers;
+namespace Autograph\Helpers;
 
 /**
  * Class JsonHelper
- * @package CM\Helpers
+ * @package Autograph\Helpers
  */
 class JsonHelper
 {

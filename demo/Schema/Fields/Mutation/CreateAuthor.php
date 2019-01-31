@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Schema\Fields\Mutation;
+namespace Autograph\Demo\Schema\Fields\Mutation;
 
-use Demo\Database\Entities\Author;
-use Demo\Database\Manager;
-use Demo\Schema\TypeManager;
-use Demo\Schema\AppContext;
+use Autograph\Demo\Database\Entities\Author;
+use Autograph\Demo\Database\Manager;
+use Autograph\Demo\Schema\TypeManager;
+use Autograph\Demo\Schema\AppContext;
 use GraphQL\Type\Definition\ResolveInfo;
-use Demo\Helpers\ClassHelper;
+use Autograph\Demo\Helpers\ClassHelper;
 
 /**
  * Class CreateAuthor
- * @package Demo\Schema\Fields\Mutation
+ * @package Autograph\Demo\Schema\Fields\Mutation
  */
 class CreateAuthor
 {
