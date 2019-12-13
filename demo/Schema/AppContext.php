@@ -4,17 +4,14 @@ namespace Autograph\Demo\Schema;
 
 /**
  * Class AppContext
- * @package CM\Schema
+ * @package Autograph\Demo\Schema
  */
 class AppContext
 {
-    /**
-     * @var string
-     */
-    public $rootUrl;
+    public string $rootUrl;
 
     /**
-     * @var \mixed
+     * @var mixed
      */
     public $request;
 }

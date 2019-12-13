@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Demo;
+namespace Autograph\Demo;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -9,17 +9,13 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Autograph\Demo\Database\Manager;
-use Autograph\Demo\Request;
-use Autograph\Demo\Helpers\ErrorHelper;
-use Autograph\Demo\Schema\Query\FilterCollection;
 
 $paths = array(realpath(__DIR__ . 'Database/Entities'));
 
 $isDevMode = true;
 
 $connectionParams = array(
-    'url' => 'sqlite:///' . 'blog.db'
+    'url' => 'sqlite:///' . 'chinook.db'
 );
 
 $config = Setup::createConfiguration($isDevMode);
@@ -32,13 +28,11 @@ $em = EntityManager::create($connectionParams, $config);
 
 $manager = Manager::getInstance();
 $manager->setEm($em);
-$manager->setFilterCollection(new FilterCollection());
 
 try {
     echo Request::serve();
 } catch (\Exception $e) {
     var_dump($e); die;
-    ErrorHelper::simple($e);
 }
 
 

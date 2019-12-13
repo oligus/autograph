@@ -4,18 +4,20 @@ namespace Autograph\Demo\Schema\Query;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+// @phan-file-suppress PhanPluginUnknownMethodParamType
+
+/**
+ * Class FilterCollection
+ * @package Autograph\Demo\Schema\Query
+ */
 class FilterCollection extends ArrayCollection
 {
-    /**
-     * @param $element
-     * @return bool|void
-     */
-    public function add($element)
+    public function add($element): void
     {
-        if($element instanceof Filter) {
+        if ($element instanceof Filter) {
             $key = $element->getName();
 
-            if(!$this->containsKey($key)) {
+            if (!$this->containsKey($key)) {
                 $this->set($key, $element->getFilters());
             }
         }

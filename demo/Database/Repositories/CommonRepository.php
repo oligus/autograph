@@ -2,6 +2,7 @@
 
 namespace Autograph\Demo\Database\Repositories;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
@@ -12,12 +13,27 @@ use Doctrine\ORM\QueryBuilder;
 class CommonRepository extends EntityRepository
 {
     /**
-     * @param array $args
+     * @param array<string,mixed> $args
      * @return mixed
      */
-    public function filter(array $args): array
+    public function filter(array $args)
     {
-        return $this->getFilterQuery($args, false)->getQuery()->getResult();
+        /* @var EntityManager $em */
+        $em = $this->getEntityManager();
+
+        $qb = $em->createQueryBuilder()
+            ->select('t')
+            ->from($this->_entityName, 't');
+
+        foreach ($args['filter'] as $field => $value) {
+            $value = str_replace('*', '%', $value);
+            $qb->andWhere($qb->expr()->like('t.' . $field, ':' . $field));
+            $qb->setParameter($field, $value);
+        }
+
+        $qb = $this->addPagination($qb, $args);
+
+        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -116,8 +132,4 @@ class CommonRepository extends EntityRepository
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function create(array $args)
-    {
-
-    }
 }

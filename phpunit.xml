@@ -1,7 +1,7 @@
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/|version|/phpunit.xsd"
-        bootstrap="./tests/TestHelper.php"
+        bootstrap="./tests/Bootstrap.php"
         cacheTokens="false"
         colors="true"
         convertErrorsToExceptions="true"
@@ -10,8 +10,20 @@
         verbose="true">
 
     <testsuites>
-        <testsuite name="src">
+        <testsuite name="unit">
             <directory>./tests/src</directory>
         </testsuite>
+        <testsuite name="e2e">
+            <directory>./tests/e2e</directory>
+        </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>src</directory>
+        </whitelist>
+    </filter>
+
 </phpunit>
+
+

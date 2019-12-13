@@ -6,7 +6,7 @@ use GraphQL\Type\Definition\InputObjectType;
 
 /**
  * Class Filters
- * @package CM\Schema\Query
+ * @package CX\Schema\Query
  */
 class Filter
 {
@@ -16,24 +16,23 @@ class Filter
     private $name;
 
     /**
-     * @var array
+     * @var array<string,array>
      */
     private $fields = [];
 
     /**
-     * @var array
+     * @var array<string,array>
      */
     private $defaults = [];
 
     /**
      * Filters constructor.
+     * @phan-suppress PhanEmptyPrivateMethod
      */
-    private function __construct() { }
+    private function __construct()
+    {
+    }
 
-    /**
-     * @param string $name
-     * @return Filters
-     */
     public static function create(string $name): self
     {
         $filter = new self();
@@ -44,29 +43,29 @@ class Filter
         return $filter;
     }
 
-    public function getFilters()
+    /**
+     * @return array<string,mixed>
+     */
+    public function getFilters(): array
     {
         $filterType = new InputObjectType([
             'name' => $this->name,
             'fields' => $this->fields
         ]);
 
-        $filters = [
+        return [
             'type' => $filterType,
             'defaultValue' => $this->defaults
         ];
-
-        return $filters;
     }
 
     /**
-     * @param string $name
-     * @param array $values
+     * @param array<mixed> $values
      * @throws \Exception
      */
-    public function addField(string $name, array $values = [])
+    public function addField(string $name, array $values = []): void
     {
-        if(array_key_exists($name, $this->fields)) {
+        if (array_key_exists($name, $this->fields)) {
             throw new \Exception('Filter with name [' . $name . '] has already been added');
         }
 
@@ -74,13 +73,12 @@ class Filter
     }
 
     /**
-     * @param string $name
-     * @param array $values
+     * @param array<mixed> $values
      * @throws \Exception
      */
-    public function addDefault(string $name, array $values = [])
+    public function addDefault(string $name, array $values = []): void
     {
-        if(array_key_exists($name, $this->fields)) {
+        if (array_key_exists($name, $this->fields)) {
             throw new \Exception('Default with name [' . $name . '] has already been added');
         }
 
@@ -88,7 +86,7 @@ class Filter
     }
 
     /**
-     * @return string
+     * @codeCoverageIgnore
      */
     public function getName(): string
     {

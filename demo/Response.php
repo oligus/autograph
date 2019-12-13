@@ -3,12 +3,13 @@
 namespace Autograph\Demo;
 
 use Autograph\Demo\Schema\AppContext;
-use Autograph\Demo\Schema\Types\MutationType;
-use Autograph\Demo\Schema\Types\QueryType;
+use Autograph\Demo\Schema\Types\Mutation;
+use Autograph\Demo\Schema\Types\Query;
 use Autograph\Demo\Helpers\JsonHelper;
 use GraphQL\GraphQL;
 use GraphQL\Type\Schema;
 use GraphQL\Error\Debug;
+use Exception;
 
 /**
  * Class Response
@@ -19,7 +20,7 @@ class Response
     /**
      * @var array $data
      */
-    private $data;
+    private array $data;
 
     /**
      * Response constructor.
@@ -32,18 +33,18 @@ class Response
 
     /**
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function get()
     {
         $appContext = new AppContext();
-        $appContext->rootUrl = 'http://localhost:8080';
+        $appContext->rootUrl = 'http://localhost:8888';
         $appContext->request = $_REQUEST;
 
         // GraphQL schema to be passed to query executor:
         $schema = new Schema([
-            'query' => new QueryType(),
-            'mutation' => new MutationType()
+            'query' => new Query(),
+            'mutation' => new Mutation()
         ]);
 
         $result = GraphQL::executeQuery(
