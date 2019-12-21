@@ -26,9 +26,14 @@ class CommonRepository extends EntityRepository
             ->from($this->_entityName, 't');
 
         foreach ($args['filter'] as $field => $value) {
-            $value = str_replace('*', '%', $value);
-            $qb->andWhere($qb->expr()->like('t.' . $field, ':' . $field));
-            $qb->setParameter($field, $value);
+            if($field === 'id') {
+                $qb->andWhere($qb->expr()->eq('t.' . $field, ':' . $field));
+                $qb->setParameter($field, $value);
+            } else {
+                $value = str_replace('*', '%', $value);
+                $qb->andWhere($qb->expr()->like('t.' . $field, ':' . $field));
+                $qb->setParameter($field, $value);
+            }
         }
 
         $qb = $this->addPagination($qb, $args);
@@ -97,17 +102,17 @@ class CommonRepository extends EntityRepository
             $qb->setMaxResults($args['first']);
         }
 
-        if(array_key_exists('offset', $args)) {
-            $offset = (int) $args['offset'];
-            if($offset > 0) {
-                $qb->setFirstResult($offset);
-            }
-        }
-
         if(array_key_exists('after', $args)) {
-            $offset = (int) $args['after'];
-            if($offset > 0) {
-                $qb->setFirstResult($offset);
+            /*
+             *   $data = explode('_', base64_decode($args['after']));
+
+            $after = (int) $data[1];
+             */
+
+            $after = (int) $args['after'];
+
+            if($after > 0) {
+                $qb->setFirstResult($after);
             }
         }
 
@@ -117,6 +122,7 @@ class CommonRepository extends EntityRepository
     /**
      * @param string $field
      * @return int
+     * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getCount($field = 'id'): int

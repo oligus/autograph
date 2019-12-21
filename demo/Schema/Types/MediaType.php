@@ -7,10 +7,10 @@ use GraphQL\Type\Definition\ObjectType;
 use Exception;
 
 /**
- * Class Albums
- * @package Autograph\Demo\Schema\Types
+ * Class Track
+ * @package Autograph\Demo\Schema\Type
  */
-class Artists extends ObjectType
+class MediaType extends ObjectType
 {
     /**
      * Option constructor.
@@ -19,16 +19,16 @@ class Artists extends ObjectType
     public function __construct()
     {
         $config = [
-            'name' => 'Artists',
-            'description' => 'Artists',
+            'name' => 'MediaType',
+            'description' => 'Media Type',
             /**
              * @return array<string,mixed>
              * @throws Exception
              */
             'fields' => function (): array {
                 return [
-                    'count' =>  TypeManager::int(),
-                    'nodes' => TypeManager::listOf(TypeManager::get('Artist'))
+                    'id' => TypeManager::id(),
+                    'name' => TypeManager::string()
                 ];
             }
         ];

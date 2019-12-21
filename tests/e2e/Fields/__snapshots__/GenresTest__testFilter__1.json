@@ -1,0 +1,17 @@
+{
+    "data": {
+        "genres": {
+            "totalCount": 25,
+            "nodes": [
+                {
+                    "id": "12",
+                    "name": "Easy Listening"
+                },
+                {
+                    "id": "13",
+                    "name": "Heavy Metal"
+                }
+            ]
+        }
+    }
+}

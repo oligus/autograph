@@ -3,10 +3,10 @@
 namespace Autograph\Demo\Schema;
 
 /**
- * Class AppContext
+ * Class Context
  * @package Autograph\Demo\Schema
  */
-class AppContext
+class Context
 {
     public string $rootUrl;
 

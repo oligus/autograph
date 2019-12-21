@@ -2,16 +2,15 @@
 
 namespace Autograph\Demo\Schema\Types;
 
-use Autograph\Demo\Schema\Fields\Albums;
 use Autograph\Demo\Schema\TypeManager;
 use GraphQL\Type\Definition\ObjectType;
 use Exception;
 
 /**
- * Class Artist
- * @package Autograph\Demo\Schema\Types
+ * Class Tracks
+ * @package Autograph\Demo\Schema\Type
  */
-class Artist extends ObjectType
+class MediaTypes extends ObjectType
 {
     /**
      * Option constructor.
@@ -20,17 +19,16 @@ class Artist extends ObjectType
     public function __construct()
     {
         $config = [
-            'name' => 'Artist',
-            'description' => 'Artist',
+            'name' => 'MediaTypes',
+            'description' => 'Media Types',
             /**
              * @return array<string,mixed>
              * @throws Exception
              */
             'fields' => function (): array {
                 return [
-                    'id' => TypeManager::id(),
-                    'name' => TypeManager::string(),
-                    'albums' => Albums::getField()
+                    'totalCount' =>  TypeManager::int(),
+                    'nodes' => TypeManager::listOf(TypeManager::get('MediaType')),
                 ];
             }
         ];

@@ -4,7 +4,7 @@ namespace Tests;
 
 use Autograph\Demo\Manager;
 use DoctrineFixtures\FixtureManager;
-use DoctrineFixtures\Loaders\XmlLoader;
+use DoctrineFixtures\Loaders\CsvLoader;
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\Tools\ToolsException;
 use Doctrine\Common\Annotations\AnnotationException;
@@ -43,6 +43,9 @@ class Bootstrap
 
         $doctrine = new Doctrine();
         $em = $doctrine->getEm();
+
+        $fixture = new FixtureManager($em, new CsvLoader(TEST_PATH . '/fixtures'));
+        $fixture->loadAll();
 
         Manager::getInstance()->setEm($em);
     }

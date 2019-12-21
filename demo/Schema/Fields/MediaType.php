@@ -2,18 +2,18 @@
 
 namespace Autograph\Demo\Schema\Fields;
 
-use Autograph\Demo\Database\Entities\Albums;
+use Autograph\Demo\Database\Entities\MediaTypes;
 use Autograph\Demo\Manager;
 use Autograph\Demo\Schema\TypeManager;
-use Autograph\Demo\Schema\AppContext;
+use Autograph\Demo\Schema\Context;
 use GraphQL\Type\Definition\ResolveInfo;
 use Exception;
 
 /**
- * Class Album
+ * Class Genre
  * @package Autograph\Demo\Schema\Fields
  */
-class Album
+class MediaType
 {
     /**
      * @return array<string,mixed>|null
@@ -21,7 +21,7 @@ class Album
     public static function getField(): ?array
     {
         return [
-            'type'    => TypeManager::get('Album'),
+            'type'    => TypeManager::get('MediaType'),
             'args'    => [
                 'id' => [
                     'type'         => TypeManager::id(),
@@ -34,7 +34,7 @@ class Album
              * @return array<array>|null
              * @throws Exception
              */
-            'resolve' => function ($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo): ?array {
+            'resolve' => function ($value, array $args, Context $appContext, ResolveInfo $resolveInfo): ?array {
                 return self::resolve($value, $args, $appContext, $resolveInfo);
             }
         ];
@@ -43,28 +43,27 @@ class Album
     /**
      * @param mixed $value
      * @param array<string,mixed> $args
-     * @param AppContext $appContext
+     * @param Context $appContext
      * @param ResolveInfo $resolveInfo
      * @return array<string,mixed>|null
      * @throws Exception
      * @suppress PhanUnusedPublicMethodParameter
      */
-    public static function resolve($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo): ?array
+    public static function resolve($value, array $args, Context $appContext, ResolveInfo $resolveInfo): ?array
     {
-        if (!empty($value) && array_key_exists('album', $value)) {
-            $album = $value['album'];
+        if (!empty($value) && array_key_exists('mediaType', $value)) {
+            $genre = $value['mediaType'];
         } else {
-            $album = self::getData($args);
+            $genre = self::getData($args);
         }
 
-        if (!$album instanceof Albums) {
+        if (!$genre instanceof MediaTypes) {
             return null;
         }
 
         return [
-            'id' => $album->getId(),
-            'title' => $album->getTitle(),
-            'artist' => $album->getArtists(),
+            'id' => $genre->getId(),
+            'name' => $genre->getName()
         ];
     }
 
@@ -78,7 +77,7 @@ class Album
 
         $em = Manager::getInstance()->getEm();
 
-        $repository = $em->getRepository(Albums::class);
+        $repository = $em->getRepository(Genres::class);
         return $repository->find($id);
     }
 }

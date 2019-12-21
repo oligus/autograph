@@ -27,8 +27,8 @@ class Genres extends ObjectType
              */
             'fields' => function (): array {
                 return [
-                    'count' =>  TypeManager::int(),
-                    'nodes' => TypeManager::listOf(TypeManager::get('Genre'))
+                    'totalCount' =>  TypeManager::int(),
+                    'nodes' => TypeManager::listOf(TypeManager::get('Genre')),
                 ];
             }
         ];

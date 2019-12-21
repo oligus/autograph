@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f04d273cb2fb10e05760724b6750a2c8",
+    "content-hash": "c089ff6de045ebc01d06c3272406f295",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1307,16 +1307,16 @@
         },
         {
             "name": "oligus/doctrine-fixtures",
-            "version": "0.1.4",
+            "version": "0.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oligus/doctrine-fixtures.git",
-                "reference": "7c0e62bb8c15bfaf300cd447a8d06fc8b4df173f"
+                "reference": "9b3bb64313a18d84442101fdae85e1e96448f54a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oligus/doctrine-fixtures/zipball/7c0e62bb8c15bfaf300cd447a8d06fc8b4df173f",
-                "reference": "7c0e62bb8c15bfaf300cd447a8d06fc8b4df173f",
+                "url": "https://api.github.com/repos/oligus/doctrine-fixtures/zipball/9b3bb64313a18d84442101fdae85e1e96448f54a",
+                "reference": "9b3bb64313a18d84442101fdae85e1e96448f54a",
                 "shasum": ""
             },
             "require": {
@@ -1353,7 +1353,7 @@
                 }
             ],
             "description": "Doctrine fixtures",
-            "time": "2019-12-10T21:12:55+00:00"
+            "time": "2019-12-14T22:21:12+00:00"
         },
         {
             "name": "phar-io/manifest",

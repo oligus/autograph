@@ -1,7 +1,7 @@
 {
     "data": {
         "genres": {
-            "count": 25,
+            "totalCount": 25,
             "nodes": [
                 {
                     "id": "1",

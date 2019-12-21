@@ -2,7 +2,7 @@
 
 namespace Autograph\Demo;
 
-use Autograph\Demo\Schema\AppContext;
+use Autograph\Demo\Schema\Context;
 use Autograph\Demo\Schema\Types\Mutation;
 use Autograph\Demo\Schema\Types\Query;
 use Autograph\Demo\Helpers\JsonHelper;
@@ -37,9 +37,9 @@ class Response
      */
     public function get()
     {
-        $appContext = new AppContext();
-        $appContext->rootUrl = 'http://localhost:8888';
-        $appContext->request = $_REQUEST;
+        $context = new Context();
+        $context->rootUrl = 'http://localhost:8888';
+        $context->request = $_REQUEST;
 
         // GraphQL schema to be passed to query executor:
         $schema = new Schema([
@@ -51,7 +51,7 @@ class Response
             $schema,
             $this->data['query'],
             null,
-            $appContext,
+            $context,
             JsonHelper::toArray($this->data['variables'])
         );
 

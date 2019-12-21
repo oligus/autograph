@@ -2,6 +2,8 @@
 
 namespace Autograph\Demo\Schema\Types;
 
+use Autograph\Demo\Schema\Mutations\Genre;
+use Autograph\Demo\Schema\Mutations\MediaType;
 use GraphQL\Type\Definition\ObjectType;
 use Exception;
 
@@ -24,7 +26,13 @@ class Mutation extends ObjectType
              */
             'fields' => function (): array {
                 return [
+                    'createGenre' => (new Genre())->create(),
+                    'updateGenre' => (new Genre())->update(),
+                    'deleteGenre' => (new Genre())->delete(),
 
+                    'createMediaType' => (new MediaType())->create(),
+                    'updateMediaType' => (new MediaType())->update(),
+                    'deleteMediaType' => (new MediaType())->delete(),
                 ];
             }
         ];

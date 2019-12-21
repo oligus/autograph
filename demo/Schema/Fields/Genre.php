@@ -5,7 +5,7 @@ namespace Autograph\Demo\Schema\Fields;
 use Autograph\Demo\Database\Entities\Genres;
 use Autograph\Demo\Manager;
 use Autograph\Demo\Schema\TypeManager;
-use Autograph\Demo\Schema\AppContext;
+use Autograph\Demo\Schema\Context;
 use GraphQL\Type\Definition\ResolveInfo;
 use Exception;
 
@@ -34,7 +34,7 @@ class Genre
              * @return array<array>|null
              * @throws Exception
              */
-            'resolve' => function ($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo): ?array {
+            'resolve' => function ($value, array $args, Context $appContext, ResolveInfo $resolveInfo): ?array {
                 return self::resolve($value, $args, $appContext, $resolveInfo);
             }
         ];
@@ -43,13 +43,13 @@ class Genre
     /**
      * @param mixed $value
      * @param array<string,mixed> $args
-     * @param AppContext $appContext
+     * @param Context $appContext
      * @param ResolveInfo $resolveInfo
      * @return array<string,mixed>|null
      * @throws Exception
      * @suppress PhanUnusedPublicMethodParameter
      */
-    public static function resolve($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo): ?array
+    public static function resolve($value, array $args, Context $appContext, ResolveInfo $resolveInfo): ?array
     {
         if (!empty($value) && array_key_exists('genre', $value)) {
             $genre = $value['genre'];

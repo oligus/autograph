@@ -2,14 +2,18 @@
 
 namespace Tests;
 
+use Autograph\Demo\Database\Entities\PlaylistTrack;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\Tools\SchemaTool;
+use DoctrineFixtures\FixtureManager;
+use DoctrineFixtures\Loaders\XmlLoader;
+use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\Tools\ToolsException;
 
 /**
@@ -20,20 +24,19 @@ class Doctrine
     /**
      * @var EntityManager
      */
-    private $em;
+    private EntityManager $em;
 
     /**
      * Doctrine constructor.
      * @throws AnnotationException
+     * @throws DBALException
      * @throws ORMException
      * @throws ToolsException
      */
     public function __construct()
     {
-        $paths      = [TEST_PATH . '/mock/Entities'];
-        $proxyPaths = TEST_PATH . '/mock/Proxies';
-
-        $isDevMode = true;
+        $paths      = [BASE_PATH . '/demo/Database/Entities'];
+        $proxyPaths = TEST_PATH . '/demo/Database/Proxies';
 
         $doctrineConfig = new Configuration();
 
@@ -43,10 +46,11 @@ class Doctrine
         $doctrineConfig->setMetadataDriverImpl($driver);
         $doctrineConfig->setProxyDir($proxyPaths);
         $doctrineConfig->setProxyNamespace('Tests\Proxies');
-        $doctrineConfig->setAutoGenerateProxyClasses($isDevMode);
+        $doctrineConfig->setAutoGenerateProxyClasses(true);
 
-        $database = TEST_PATH . '/fixtures/chinook.db';
-        $connectionParams = ['url' => 'sqlite:///' . $database];
+        $url = 'sqlite:///:memory:';
+        // $url = 'sqlite:///' . TEST_PATH . '/fixtures/moo.db';
+        $connectionParams = ['url' => $url];
 
         $this->em = EntityManager::create($connectionParams, $doctrineConfig);
     }

@@ -23,22 +23,27 @@ class TypeManager
     /**
      * @var array<string,mixed>
      */
-    private static $types = [];
+    private static array $types = [];
 
     /**
      * @var array<string,InputObjectType>
      */
-    private static $inputTypes = [];
+    private static array $inputTypes = [];
+
+    /**
+     * @var array<string,Definition\InterfaceType>
+     */
+    private static array $interfaceTypes = [];
 
     /**
      * @var array<string,ScalarType>
      */
-    private static $scalarTypes = [];
+    private static array $scalarTypes = [];
 
     /**
      * @var array<string,Definition\UnionType>
      */
-    private static $unionTypes = [];
+    private static array $unionTypes = [];
 
     /**
      * @throws Exception
@@ -72,11 +77,24 @@ class TypeManager
             return self::$inputTypes[$typeName];
         }
 
-        $inputType = self::CLASSPATH . '\\' . 'Inputs\\' . ucfirst($typeName);
+        $inputType = self::CLASSPATH . '\\' . 'Input\\' . ucfirst($typeName);
 
         self::$inputTypes[$typeName] = new $inputType;
 
         return self::$inputTypes[$typeName];
+    }
+
+    public static function getInterface(string $typeName): Definition\InterfaceType
+    {
+        if (array_key_exists($typeName, self::$interfaceTypes)) {
+            return self::$interfaceTypes[$typeName];
+        }
+
+        $interfaceType = self::CLASSPATH . '\\' . 'Interfaces\\' . ucfirst($typeName);
+
+        self::$interfaceTypes[$typeName] = new $interfaceType;
+
+        return self::$interfaceTypes[$typeName];
     }
 
     public static function getScalar(string $typeName): ScalarType

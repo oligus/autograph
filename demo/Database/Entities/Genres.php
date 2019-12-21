@@ -15,14 +15,14 @@ class Genres
      * @ORM\Column(name="GenreId", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected int $id;
+    protected ?int $id = null;
 
     /**
      * @ORM\Column(name="Name", type="string", length=120)
      */
     protected string $name;
     
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

@@ -7,21 +7,21 @@ use Tests\TestCase;
 use Exception;
 
 /**
- * Class Genres
- * @package Autograph\Tests\E2E
+ * Class MediaTypesTest
+ * @package Autograph\Tests\E2E\Fields
  */
-class GenresTest extends TestCase
+class MediaTypesTest extends TestCase
 {
     use MatchesSnapshots;
 
     /**
      * @throws Exception
      */
-    public function testGenres()
+    public function testMediaTypes()
     {
         $query = <<<EOL
 {
-  genres {
+  mediaTypes {
     totalCount
     nodes {
         id
@@ -38,7 +38,7 @@ EOL;
     {
         $query = <<<EOL
 {
-  genres(filter: { name : "%ea%" }) {
+  mediaTypes(filter: { name : "%MPEG%" }) {
     totalCount
     nodes {
       id
@@ -55,7 +55,7 @@ EOL;
     {
         $query = <<<EOL
 {
-  genres(first: 5, after: 5) {
+  mediaTypes(first: 2, after: 3) {
     totalCount
     nodes {
       id

@@ -5,7 +5,7 @@ namespace Autograph\Demo\Schema\Fields;
 use Autograph\Demo\Database\Repositories\CommonRepository;
 use Autograph\Demo\Manager;
 use Autograph\Demo\Schema\TypeManager;
-use Autograph\Demo\Database\Entities\Genres as GenresEntity;
+use Autograph\Demo\Database\Entities\MediaTypes as MediaTypesEntity;
 use Autograph\Demo\Schema\Context;
 use Autograph\Demo\Schema\Query\Filter;
 use Autograph\Demo\Schema\Query\FilterCollection;
@@ -18,7 +18,7 @@ use Exception;
  * Class Genres
  * @package Autograph\Demo\Schema\Fields
  */
-class Genres
+class MediaTypes
 {
     public function __construct()
     {
@@ -34,19 +34,16 @@ class Genres
         /** @var FilterCollection $filterCollection */
         $filterCollection = Manager::getInstance()->getFilterCollection();
 
-        $filter = Filter::create('GenresFilters');
+        $filter = Filter::create('MediaTypesFilters');
         $filter->addField('id', ['type' => TypeManager::id()]);
         $filter->addField('name', ['type' => TypeManager::string()]);
 
         $filterCollection->add($filter);
 
         return [
-            'type' => TypeManager::get('Genres'),
-            'interfaces' => [
-                TypeManager::getInterface('Node'),
-            ],
+            'type' => TypeManager::get('MediaTypes'),
             'args' => [
-                'filter' => $filterCollection->get('GenresFilters'),
+                'filter' => $filterCollection->get('MediaTypesFilters'),
                 'first' => TypeManager::int(),
                 'offset' => TypeManager::int(),
                 'after' => TypeManager::int(),
@@ -75,21 +72,21 @@ class Genres
      */
     public function resolve($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array
     {
-        if (!empty($value) && array_key_exists('genres', $value)) {
-            $genres = $value['genres'];
+        if (!empty($value) && array_key_exists('mediaTypes', $value)) {
+            $mediaTypes = $value['mediaTypes'];
         } else {
-            $genres = $this->getData($args);
+            $mediaTypes = $this->getData($args);
         }
 
         $totalCount = $this->getCount();
 
         $nodes = [];
 
-        /** @var GenresEntity $genre */
-        foreach ($genres as $genre) {
+        /** @var MediaTypesEntity $mediaType */
+        foreach ($mediaTypes as $mediaType) {
             $nodes[] = [
-                'id' => $genre->getId(),
-                'name' => $genre->getName()
+                'id' => $mediaType->getId(),
+                'name' => $mediaType->getName()
             ];
         }
 
@@ -106,7 +103,7 @@ class Genres
     public function getData(array $args)
     {
         /** @var CommonRepository $repository */
-        $repository = Manager::getInstance()->getEm()->getRepository(GenresEntity::class);
+        $repository = Manager::getInstance()->getEm()->getRepository(MediaTypesEntity::class);
         return $repository->filter($args);
     }
 
@@ -118,7 +115,7 @@ class Genres
     public static function getCount(): int
     {
         /** @var CommonRepository $repository */
-        $repository = Manager::getInstance()->getEm()->getRepository(GenresEntity::class);
+        $repository = Manager::getInstance()->getEm()->getRepository(MediaTypesEntity::class);
         return $repository->getCount();
     }
 }

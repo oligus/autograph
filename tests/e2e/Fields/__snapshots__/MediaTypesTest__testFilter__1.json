@@ -1,0 +1,17 @@
+{
+    "data": {
+        "mediaTypes": {
+            "totalCount": 5,
+            "nodes": [
+                {
+                    "id": "1",
+                    "name": "MPEG audio file"
+                },
+                {
+                    "id": "3",
+                    "name": "Protected MPEG-4 video file"
+                }
+            ]
+        }
+    }
+}

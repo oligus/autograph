@@ -1,0 +1,17 @@
+{
+    "data": {
+        "mediaTypes": {
+            "totalCount": 5,
+            "nodes": [
+                {
+                    "id": "4",
+                    "name": "Purchased AAC audio file"
+                },
+                {
+                    "id": "5",
+                    "name": "AAC audio file"
+                }
+            ]
+        }
+    }
+}
