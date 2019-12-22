@@ -2,6 +2,8 @@
 
 namespace Autograph\Demo;
 
+use Autograph\Manager;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Doctrine\ORM\Tools\Setup;

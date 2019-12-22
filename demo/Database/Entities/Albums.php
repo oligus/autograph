@@ -15,7 +15,7 @@ class Albums
      * @ORM\Column(name="AlbumId", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected int $id;
+    protected ?int $id = null;
 
     /**
      * @ORM\Column(name="Title", type="string", length=160)

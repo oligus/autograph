@@ -17,7 +17,7 @@ class Artists
      * @ORM\Column(name="ArtistId", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected int $id;
+    protected ?int $id = null;
 
     /**
      * @ORM\Column(name="Name", type="string", length=120)
