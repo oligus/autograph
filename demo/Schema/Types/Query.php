@@ -4,6 +4,7 @@ namespace Autograph\Demo\Schema\Types;
 
 use Autograph\Demo\Schema\Fields\Genres;
 use Autograph\Demo\Schema\Fields\MediaTypes;
+use Autograph\Demo\Schema\Fields\PlayLists;
 use GraphQL\Type\Definition\ObjectType;
 
 /**
@@ -24,7 +25,8 @@ class Query extends ObjectType
             'fields' => function (): array {
                 return [
                     'genres' => (new Genres())->getField(),
-                    'mediaTypes' => (new MediaTypes())->getField()
+                    'mediaTypes' => (new MediaTypes())->getField(),
+                    'playLists' => (new PlayLists())->getField()
                 ];
             }
         ]);

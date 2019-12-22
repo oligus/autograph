@@ -1,0 +1,29 @@
+{
+    "data": {
+        "playLists": {
+            "totalCount": 18,
+            "nodes": [
+                {
+                    "id": "1",
+                    "name": "Music"
+                },
+                {
+                    "id": "5",
+                    "name": "90\u2019s Music"
+                },
+                {
+                    "id": "8",
+                    "name": "Music"
+                },
+                {
+                    "id": "9",
+                    "name": "Music Videos"
+                },
+                {
+                    "id": "11",
+                    "name": "Brazilian Music"
+                }
+            ]
+        }
+    }
+}

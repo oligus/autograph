@@ -4,6 +4,7 @@ namespace Autograph\Demo\Schema\Types;
 
 use Autograph\Demo\Schema\Mutations\Genre;
 use Autograph\Demo\Schema\Mutations\MediaType;
+use Autograph\Demo\Schema\Mutations\PlayList;
 use GraphQL\Type\Definition\ObjectType;
 use Exception;
 
@@ -33,6 +34,10 @@ class Mutation extends ObjectType
                     'createMediaType' => (new MediaType())->create(),
                     'updateMediaType' => (new MediaType())->update(),
                     'deleteMediaType' => (new MediaType())->delete(),
+
+                    'createPlayList' => (new PlayList())->create(),
+                    'updatePlayList' => (new PlayList())->update(),
+                    'deletePlayList' => (new PlayList())->delete(),
                 ];
             }
         ];
