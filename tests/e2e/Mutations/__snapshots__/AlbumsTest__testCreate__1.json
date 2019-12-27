@@ -1,0 +1,12 @@
+{
+    "data": {
+        "createAlbum": {
+            "id": "348",
+            "title": "Test Album",
+            "artist": {
+                "id": "100",
+                "name": "Lenny Kravitz"
+            }
+        }
+    }
+}

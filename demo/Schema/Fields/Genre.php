@@ -2,6 +2,7 @@
 
 namespace Autograph\Demo\Schema\Fields;
 
+use Autograph\Autograph;
 use Autograph\Demo\Database\Entities\Genres;
 use Autograph\Manager;
 use Autograph\Demo\Schema\TypeManager;
@@ -75,7 +76,7 @@ class Genre
     {
         $id = array_key_exists('id', $args) ? $args['id'] : 0;
 
-        $em = Manager::getInstance()->getEm();
+        $em = Autograph::getInstance()->getEm();
 
         $repository = $em->getRepository(Genres::class);
         return $repository->find($id);

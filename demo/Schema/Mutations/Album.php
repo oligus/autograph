@@ -3,11 +3,11 @@
 namespace Autograph\Demo\Schema\Mutations;
 
 use Autograph\Autograph;
-use Autograph\Demo\Database\Entities\PlayLists;
+use Autograph\Demo\Database\Entities\Albums;
+use Autograph\Demo\Database\Entities\Artists;
 use Autograph\Helpers\ClassHelper;
-use Autograph\Manager;
 use Autograph\Context;
-use Autograph\Demo\Schema\Fields\PlayList as PlayListField;
+use Autograph\Demo\Schema\Fields\Album as AlbumField;
 use Autograph\Demo\Schema\TypeManager;
 use Doctrine\ORM\EntityManager;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -17,10 +17,10 @@ use ReflectionException;
 use Exception;
 
 /**
- * Class PlayList
+ * Class Album
  * @package Autograph\Demo\Schema\Mutations
  */
-class PlayList
+class Album
 {
     /**
      * @return array
@@ -29,11 +29,11 @@ class PlayList
     public function create(): array
     {
         return [
-            'name' => 'createPlayList',
+            'name' => 'createAlbum',
             'args' => [
-                'playList' => TypeManager::nonNull(TypeManager::getInput('CreatePlayListInput')),
+                'album' => TypeManager::nonNull(TypeManager::getInput('CreateAlbumInput')),
             ],
-            'type' => TypeManager::get('PlayList'),
+            'type' => TypeManager::get('Album'),
 
             'resolve' => function ($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array {
                 return $this->resolveCreate($value, $args, $context, $resolveInfo);
@@ -54,21 +54,24 @@ class PlayList
      */
     public function resolveCreate($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array
     {
-        $input = $args['playList'];
+        $input = $args['album'];
 
-        $playList = new PlayLists();
-
-        foreach ($input as $field => $value) {
-            ClassHelper::setPropertyValue($playList, $field, $value);
-        }
+        $album = new Albums();
 
         /** @var EntityManager $em */
         $em = Autograph::getInstance()->getEm();
 
-        $em->persist($playList);
+        foreach ($input as $field => $value) {
+            if($field === 'artist') {
+                $value = $em->getRepository(Artists::class)->find($value);
+            }
+            ClassHelper::setPropertyValue($album, $field, $value);
+        }
+
+        $em->persist($album);
         $em->flush();
 
-        return (new PlayListField())->resolve(['playList' => $playList], [], $context, $resolveInfo);
+        return (new AlbumField())->resolve(['album' => $album], [], $context, $resolveInfo);
     }
 
     /**
@@ -78,11 +81,11 @@ class PlayList
     public function update(): array
     {
         return [
-            'name' => 'updatePlayList',
+            'name' => 'updateAlbum',
             'args' => [
-                'playList' => TypeManager::nonNull(TypeManager::getInput('UpdatePlayListInput')),
+                'album' => TypeManager::nonNull(TypeManager::getInput('UpdateAlbumInput')),
             ],
-            'type' => TypeManager::get('PlayList'),
+            'type' => TypeManager::get('Album'),
 
             'resolve' => function ($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array {
                 return $this->resolveUpdate($value, $args, $context, $resolveInfo);
@@ -103,24 +106,24 @@ class PlayList
      */
     public function resolveUpdate($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array
     {
-        $input = $args['playList'];
+        $input = $args['album'];
 
         /** @var EntityManager $em */
         $em = Autograph::getInstance()->getEm();
 
-        $playList = $em->getRepository(PlayLists::class)->find($input['id']);
+        $album = $em->getRepository(Albums::class)->find($input['id']);
 
         foreach ($input as $field => $value) {
-            ClassHelper::setPropertyValue($playList, $field, $value);
+            ClassHelper::setPropertyValue($album, $field, $value);
         }
 
         /** @var EntityManager $em */
         $em = Autograph::getInstance()->getEm();
 
-        $em->persist($playList);
+        $em->persist($album);
         $em->flush();
 
-        return (new PlayListField())->resolve(['playList' => $playList], [], $context, $resolveInfo);
+        return (new AlbumField())->resolve(['album' => $album], [], $context, $resolveInfo);
     }
 
 
@@ -131,11 +134,11 @@ class PlayList
     public function delete(): array
     {
         return [
-            'name' => 'deletePlayList',
+            'name' => 'deleteAlbum',
             'args' => [
                 'id' => TypeManager::nonNull(TypeManager::id()),
             ],
-            'type' => TypeManager::get('PlayList'),
+            'type' => TypeManager::get('Album'),
 
             'resolve' => function ($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array {
                 return $this->resolveDelete($value, $args, $context, $resolveInfo);
@@ -158,12 +161,12 @@ class PlayList
         /** @var EntityManager $em */
         $em = Autograph::getInstance()->getEm();
 
-        $playList = $em->getRepository(PlayLists::class)->find($args['id']);
-        $removedPlayList = clone $playList;
+        $album = $em->getRepository(Albums::class)->find($args['id']);
+        $removedAlbum = clone $album;
 
-        $em->remove($playList);
+        $em->remove($album);
         $em->flush();
 
-        return (new PlayListField())->resolve(['playList' => $removedPlayList], [], $context, $resolveInfo);
+        return (new AlbumField())->resolve(['album' => $removedAlbum], [], $context, $resolveInfo);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Autograph\Demo\Schema\Types;
 
+use Autograph\Demo\Schema\Mutations\Album;
+use Autograph\Demo\Schema\Mutations\Artist;
 use Autograph\Demo\Schema\Mutations\Genre;
 use Autograph\Demo\Schema\Mutations\MediaType;
 use Autograph\Demo\Schema\Mutations\PlayList;
@@ -38,6 +40,14 @@ class Mutation extends ObjectType
                     'createPlayList' => (new PlayList())->create(),
                     'updatePlayList' => (new PlayList())->update(),
                     'deletePlayList' => (new PlayList())->delete(),
+
+                    'createArtist' => (new Artist())->create(),
+                    'updateArtist' => (new Artist())->update(),
+                    'deleteArtist' => (new Artist())->delete(),
+
+                    'createAlbum' => (new Album())->create(),
+                    'updateAlbum' => (new Album())->update(),
+                    'deleteAlbum' => (new Album())->delete(),
                 ];
             }
         ];

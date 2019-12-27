@@ -2,6 +2,7 @@
 
 namespace Autograph\Demo\Schema\Fields;
 
+use Autograph\Autograph;
 use Autograph\Demo\Database\Repositories\CommonRepository;
 use Autograph\Demo\Schema\TypeManager;
 use Autograph\Demo\Database\Entities\Albums as AlbumsEntity;
@@ -30,7 +31,7 @@ class Albums
     public function getField(): ?array
     {
         /** @var FilterInputCollection $filterCollection */
-        $filterCollection = Manager::getInstance()->getFilterCollection();
+        $filterCollection = Autograph::getInstance()->getFilterCollection();
 
         $filter = FilterInput::create('AlbumsFilters');
         $filter->addField('id', ['type' => TypeManager::id()]);
@@ -109,7 +110,7 @@ class Albums
     public function getData(array $args)
     {
         /** @var CommonRepository $repository */
-        $repository = Manager::getInstance()->getEm()->getRepository(AlbumsEntity::class);
+        $repository = Autograph::getInstance()->getEm()->getRepository(AlbumsEntity::class);
         return $repository->filter($args);
     }
 
@@ -121,7 +122,7 @@ class Albums
     public static function getCount(): int
     {
         /** @var CommonRepository $repository */
-        $repository = Manager::getInstance()->getEm()->getRepository(AlbumsEntity::class);
+        $repository = Autograph::getInstance()->getEm()->getRepository(AlbumsEntity::class);
         return $repository->getCount();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Autograph\Demo\Schema\Mutations;
 
+use Autograph\Autograph;
 use Autograph\Demo\Database\Entities\MediaTypes;
 use Autograph\Helpers\ClassHelper;
 use Autograph\Manager;
@@ -62,7 +63,7 @@ class MediaType
         }
 
         /** @var EntityManager $em */
-        $em = Manager::getInstance()->getEm();
+        $em = Autograph::getInstance()->getEm();
 
         $em->persist($mediaType);
         $em->flush();
@@ -105,7 +106,7 @@ class MediaType
         $input = $args['mediaType'];
 
         /** @var EntityManager $em */
-        $em = Manager::getInstance()->getEm();
+        $em = Autograph::getInstance()->getEm();
 
         $mediaType = $em->getRepository(MediaTypes::class)->find($input['id']);
 
@@ -114,7 +115,7 @@ class MediaType
         }
 
         /** @var EntityManager $em */
-        $em = Manager::getInstance()->getEm();
+        $em = Autograph::getInstance()->getEm();
 
         $em->persist($mediaType);
         $em->flush();
@@ -155,7 +156,7 @@ class MediaType
     public function resolveDelete($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array
     {
         /** @var EntityManager $em */
-        $em = Manager::getInstance()->getEm();
+        $em = Autograph::getInstance()->getEm();
 
         $mediaType = $em->getRepository(MediaTypes::class)->find($args['id']);
         $removedMediaType = clone $mediaType;

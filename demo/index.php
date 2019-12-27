@@ -2,6 +2,7 @@
 
 namespace Autograph\Demo;
 
+use Autograph\Autograph;
 use Autograph\Manager;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -28,8 +29,7 @@ $config->setMetadataDriverImpl($driver);
 
 $em = EntityManager::create($connectionParams, $config);
 
-$manager = Manager::getInstance();
-$manager->setEm($em);
+new Autograph($em);
 
 try {
     echo Request::serve();

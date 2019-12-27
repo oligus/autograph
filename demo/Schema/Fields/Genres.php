@@ -2,6 +2,7 @@
 
 namespace Autograph\Demo\Schema\Fields;
 
+use Autograph\Autograph;
 use Autograph\Demo\Database\Repositories\CommonRepository;
 use Autograph\Manager;
 use Autograph\Demo\Schema\TypeManager;
@@ -30,7 +31,7 @@ class Genres
     public function getField(): ?array
     {
         /** @var FilterInputCollection $filterCollection */
-        $filterCollection = Manager::getInstance()->getFilterCollection();
+        $filterCollection = Autograph::getInstance()->getFilterCollection();
 
         $filter = FilterInput::create('GenresFilters');
         $filter->addField('id', ['type' => TypeManager::id()]);
@@ -114,7 +115,7 @@ class Genres
     public function getData(array $args)
     {
         /** @var CommonRepository $repository */
-        $repository = Manager::getInstance()->getEm()->getRepository(GenresEntity::class);
+        $repository = Autograph::getInstance()->getEm()->getRepository(GenresEntity::class);
         return $repository->filter($args);
     }
 
@@ -126,7 +127,7 @@ class Genres
     public static function getCount(): int
     {
         /** @var CommonRepository $repository */
-        $repository = Manager::getInstance()->getEm()->getRepository(GenresEntity::class);
+        $repository = Autograph::getInstance()->getEm()->getRepository(GenresEntity::class);
         return $repository->getCount();
     }
 }

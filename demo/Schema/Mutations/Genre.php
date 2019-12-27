@@ -2,6 +2,7 @@
 
 namespace Autograph\Demo\Schema\Mutations;
 
+use Autograph\Autograph;
 use Autograph\Demo\Database\Entities\Genres;
 use Autograph\Helpers\ClassHelper;
 use Autograph\Manager;
@@ -62,7 +63,7 @@ class Genre
         }
 
         /** @var EntityManager $em */
-        $em = Manager::getInstance()->getEm();
+        $em = Autograph::getInstance()->getEm();
 
         $em->persist($genre);
         $em->flush();
@@ -105,7 +106,7 @@ class Genre
         $input = $args['genre'];
 
         /** @var EntityManager $em */
-        $em = Manager::getInstance()->getEm();
+        $em = Autograph::getInstance()->getEm();
 
         $genre = $em->getRepository(Genres::class)->find($input['id']);
 
@@ -114,7 +115,7 @@ class Genre
         }
 
         /** @var EntityManager $em */
-        $em = Manager::getInstance()->getEm();
+        $em = Autograph::getInstance()->getEm();
 
         $em->persist($genre);
         $em->flush();
@@ -155,7 +156,7 @@ class Genre
     public function resolveDelete($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array
     {
         /** @var EntityManager $em */
-        $em = Manager::getInstance()->getEm();
+        $em = Autograph::getInstance()->getEm();
 
         $genre = $em->getRepository(Genres::class)->find($args['id']);
         $removedGenre = clone $genre;

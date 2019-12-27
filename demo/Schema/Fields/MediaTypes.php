@@ -2,6 +2,7 @@
 
 namespace Autograph\Demo\Schema\Fields;
 
+use Autograph\Autograph;
 use Autograph\Demo\Database\Repositories\CommonRepository;
 use Autograph\Manager;
 use Autograph\Demo\Schema\TypeManager;
@@ -30,7 +31,7 @@ class MediaTypes
     public function getField(): ?array
     {
         /** @var FilterInputCollection $filterCollection */
-        $filterCollection = Manager::getInstance()->getFilterCollection();
+        $filterCollection = Autograph::getInstance()->getFilterCollection();
 
         $filter = FilterInput::create('MediaTypesFilters');
         $filter->addField('id', ['type' => TypeManager::id()]);
@@ -110,7 +111,7 @@ class MediaTypes
     public function getData(array $args)
     {
         /** @var CommonRepository $repository */
-        $repository = Manager::getInstance()->getEm()->getRepository(MediaTypesEntity::class);
+        $repository = Autograph::getInstance()->getEm()->getRepository(MediaTypesEntity::class);
         return $repository->filter($args);
     }
 
@@ -122,7 +123,7 @@ class MediaTypes
     public static function getCount(): int
     {
         /** @var CommonRepository $repository */
-        $repository = Manager::getInstance()->getEm()->getRepository(MediaTypesEntity::class);
+        $repository = Autograph::getInstance()->getEm()->getRepository(MediaTypesEntity::class);
         return $repository->getCount();
     }
 }

@@ -2,8 +2,6 @@
 
 namespace Autograph\Demo\Database\Entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,7 +26,7 @@ class Albums
      * @ORM\ManyToOne(targetEntity="Artists")
      * @ORM\JoinColumn(name="ArtistId", referencedColumnName="ArtistId")
      */
-    protected Artists $artist;
+    protected ?Artists $artist = null;
 
     public function getId(): int
     {
@@ -40,7 +38,7 @@ class Albums
         return $this->title;
     }
 
-    public function getArtist(): Artists
+    public function getArtist(): ?Artists
     {
         return $this->artist;
     }

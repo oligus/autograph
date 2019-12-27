@@ -2,6 +2,7 @@
 
 namespace Autograph\Demo\Schema\Fields;
 
+use Autograph\Autograph;
 use Autograph\Demo\Database\Entities\Albums;
 use Autograph\Manager;
 use Autograph\Demo\Schema\TypeManager;
@@ -69,14 +70,15 @@ class Album
     }
 
     /**
-     * @param array<string,mixed> $args
-     * @return mixed|null|object
+     * @param array $args
+     * @return object|null
+     * @throws Exception
      */
     public static function getData(array $args)
     {
         $id = array_key_exists('id', $args) ? $args['id'] : 0;
 
-        $em = Manager::getInstance()->getEm();
+        $em = Autograph::getInstance()->getEm();
 
         $repository = $em->getRepository(Artists::class);
         return $repository->find($id);

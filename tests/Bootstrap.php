@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Autograph\Autograph;
 use Autograph\Manager;
 use DoctrineFixtures\FixtureManager;
 use DoctrineFixtures\Loaders\CsvLoader;
@@ -47,7 +48,7 @@ class Bootstrap
         $fixture = new FixtureManager($em, new CsvLoader(TEST_PATH . '/fixtures'));
         $fixture->loadAll();
 
-        Manager::getInstance()->setEm($em);
+        new Autograph($em);
     }
 }
 
