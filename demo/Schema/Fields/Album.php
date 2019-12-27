@@ -64,7 +64,7 @@ class Album
         return [
             'id' => $album->getId(),
             'title' => $album->getTitle(),
-            'albums' => 'needs connection'
+            'artist' => $album->getArtist()
         ];
     }
 

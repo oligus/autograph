@@ -25,7 +25,7 @@ class Artists
     protected string $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Albums", mappedBy="artists")
+     * @ORM\OneToMany(targetEntity="Albums", mappedBy="artist")
      */
     protected Collection $albums;
 

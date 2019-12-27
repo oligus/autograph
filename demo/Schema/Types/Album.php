@@ -4,6 +4,7 @@ namespace Autograph\Demo\Schema\Types;
 
 use Autograph\Demo\Schema\TypeManager;
 use GraphQL\Type\Definition\ObjectType;
+use Autograph\Demo\Schema\Fields\Artist;
 use Exception;
 
 /**
@@ -29,7 +30,7 @@ class Album extends ObjectType
                 return [
                     'id' => TypeManager::id(),
                     'title' => TypeManager::string(),
-                    'artist' => TypeManager::get('Artist')
+                    'artist' => (new Artist())->getField()
                 ];
             }
         ];

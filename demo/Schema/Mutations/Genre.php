@@ -3,7 +3,7 @@
 namespace Autograph\Demo\Schema\Mutations;
 
 use Autograph\Demo\Database\Entities\Genres;
-use Autograph\Demo\Helpers\ClassHelper;
+use Autograph\Helpers\ClassHelper;
 use Autograph\Manager;
 use Autograph\Demo\Schema\Context;
 use Autograph\Demo\Schema\Fields\Genre as GenreField;

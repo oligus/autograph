@@ -1,0 +1,90 @@
+{
+    "data": {
+        "albums": {
+            "totalCount": 347,
+            "count": 10,
+            "nodes": [
+                {
+                    "id": "1",
+                    "title": "For Those About To Rock We Salute You",
+                    "artist": {
+                        "id": "1",
+                        "name": "AC\/DC"
+                    }
+                },
+                {
+                    "id": "2",
+                    "title": "Balls to the Wall",
+                    "artist": {
+                        "id": "2",
+                        "name": "Accept"
+                    }
+                },
+                {
+                    "id": "3",
+                    "title": "Restless and Wild",
+                    "artist": {
+                        "id": "2",
+                        "name": "Accept"
+                    }
+                },
+                {
+                    "id": "4",
+                    "title": "Let There Be Rock",
+                    "artist": {
+                        "id": "1",
+                        "name": "AC\/DC"
+                    }
+                },
+                {
+                    "id": "5",
+                    "title": "Big Ones",
+                    "artist": {
+                        "id": "3",
+                        "name": "Aerosmith"
+                    }
+                },
+                {
+                    "id": "6",
+                    "title": "Jagged Little Pill",
+                    "artist": {
+                        "id": "4",
+                        "name": "Alanis Morissette"
+                    }
+                },
+                {
+                    "id": "7",
+                    "title": "Facelift",
+                    "artist": {
+                        "id": "5",
+                        "name": "Alice In Chains"
+                    }
+                },
+                {
+                    "id": "8",
+                    "title": "Warner 25 Anos",
+                    "artist": {
+                        "id": "6",
+                        "name": "Ant\u00f4nio Carlos Jobim"
+                    }
+                },
+                {
+                    "id": "9",
+                    "title": "Plays Metallica By Four Cellos",
+                    "artist": {
+                        "id": "7",
+                        "name": "Apocalyptica"
+                    }
+                },
+                {
+                    "id": "10",
+                    "title": "Audioslave",
+                    "artist": {
+                        "id": "8",
+                        "name": "Audioslave"
+                    }
+                }
+            ]
+        }
+    }
+}

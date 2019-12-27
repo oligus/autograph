@@ -66,9 +66,13 @@ class Albums
      * @return array|null
      * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws Exception
      */
     public function resolve($value, Arguments $arguments, Context $context, ResolveInfo $resolveInfo): ?array
     {
+        $totalCount = 0;
+        $count = 0;
+
         if (!empty($value) && array_key_exists('albums', $value)) {
             $albums = $value['albums'];
 
@@ -81,19 +85,14 @@ class Albums
         } else {
             $albums = $this->getData($arguments->getArgs());
             $totalCount = $this->getCount();
-            $count = 0;
+            $count = count($albums);
         }
-
 
         $nodes = [];
 
         /** @var AlbumsEntity $album */
         foreach ($albums as $album) {
-            $nodes[] = [
-                'id' => $album->getId(),
-                'title' => $album->getTitle(),
-                'artists' => $album->getArtists()
-            ];
+            $nodes[] = (new Album())->resolve(['album' => $album], [], $context, $resolveInfo);
         }
 
         return [
