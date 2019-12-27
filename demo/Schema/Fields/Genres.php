@@ -6,7 +6,7 @@ use Autograph\Demo\Database\Repositories\CommonRepository;
 use Autograph\Manager;
 use Autograph\Demo\Schema\TypeManager;
 use Autograph\Demo\Database\Entities\Genres as GenresEntity;
-use Autograph\Demo\Schema\Context;
+use Autograph\Context;
 use Autograph\Query\Arguments;
 use Autograph\Query\CollectionFilter;
 use Autograph\Query\FilterInput;

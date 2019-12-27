@@ -2,7 +2,7 @@
 
 namespace Autograph\Demo;
 
-use Autograph\Demo\Schema\Context;
+use Autograph\Context;
 use Autograph\Demo\Schema\Types\Mutation;
 use Autograph\Demo\Schema\Types\Query;
 use Autograph\Demo\Helpers\JsonHelper;

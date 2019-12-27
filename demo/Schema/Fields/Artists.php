@@ -5,7 +5,7 @@ namespace Autograph\Demo\Schema\Fields;
 use Autograph\Demo\Database\Repositories\CommonRepository;
 use Autograph\Demo\Schema\TypeManager;
 use Autograph\Demo\Database\Entities\Artists as ArtistsEntity;
-use Autograph\Demo\Schema\Context;
+use Autograph\Context;
 use Autograph\Manager;
 use Autograph\Query\Arguments;
 use Autograph\Query\CollectionFilter;

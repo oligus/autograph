@@ -5,7 +5,7 @@ namespace Autograph\Demo\Schema\Mutations;
 use Autograph\Demo\Database\Entities\Genres;
 use Autograph\Helpers\ClassHelper;
 use Autograph\Manager;
-use Autograph\Demo\Schema\Context;
+use Autograph\Context;
 use Autograph\Demo\Schema\Fields\Genre as GenreField;
 use Autograph\Demo\Schema\TypeManager;
 use Doctrine\ORM\EntityManager;

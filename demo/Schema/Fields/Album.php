@@ -5,7 +5,7 @@ namespace Autograph\Demo\Schema\Fields;
 use Autograph\Demo\Database\Entities\Albums;
 use Autograph\Manager;
 use Autograph\Demo\Schema\TypeManager;
-use Autograph\Demo\Schema\Context;
+use Autograph\Context;
 use GraphQL\Type\Definition\ResolveInfo;
 use Exception;
 
