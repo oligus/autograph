@@ -1,0 +1,245 @@
+{
+    "data": {
+        "artists": {
+            "totalCount": 275,
+            "nodes": [
+                {
+                    "id": "9",
+                    "name": "BackBeat",
+                    "albums": {
+                        "totalCount": 1,
+                        "nodes": [
+                            {
+                                "id": "12",
+                                "title": "BackBeat Soundtrack"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "23",
+                    "name": "Frank Zappa & Captain Beefheart",
+                    "albums": {
+                        "totalCount": 1,
+                        "nodes": [
+                            {
+                                "id": "31",
+                                "title": "Bongo Fury"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "60",
+                    "name": "Santana Feat. Dave Matthews",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "61",
+                    "name": "Santana Feat. Everlast",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "62",
+                    "name": "Santana Feat. Rob Thomas",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "63",
+                    "name": "Santana Feat. Lauryn Hill & Cee-Lo",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "64",
+                    "name": "Santana Feat. The Project G&B",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "65",
+                    "name": "Santana Feat. Man\u00e1",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "66",
+                    "name": "Santana Feat. Eagle-Eye Cherry",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "67",
+                    "name": "Santana Feat. Eric Clapton",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "76",
+                    "name": "Creedence Clearwater Revival",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "106",
+                    "name": "Mot\u00f6rhead",
+                    "albums": {
+                        "totalCount": 1,
+                        "nodes": [
+                            {
+                                "id": "160",
+                                "title": "Ace Of Spades"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "107",
+                    "name": "Mot\u00f6rhead & Girlschool",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "118",
+                    "name": "Pearl Jam",
+                    "albums": {
+                        "totalCount": 5,
+                        "nodes": [
+                            {
+                                "id": "178",
+                                "title": "Live On Two Legs [Live]"
+                            },
+                            {
+                                "id": "179",
+                                "title": "Pearl Jam"
+                            },
+                            {
+                                "id": "180",
+                                "title": "Riot Act"
+                            },
+                            {
+                                "id": "181",
+                                "title": "Ten"
+                            },
+                            {
+                                "id": "182",
+                                "title": "Vs."
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "122",
+                    "name": "R.E.M. Feat. Kate Pearson",
+                    "albums": {
+                        "totalCount": 1,
+                        "nodes": [
+                            {
+                                "id": "187",
+                                "title": "Out Of Time"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "123",
+                    "name": "R.E.M. Feat. KRS-One",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "143",
+                    "name": "The Tea Party",
+                    "albums": {
+                        "totalCount": 2,
+                        "nodes": [
+                            {
+                                "id": "219",
+                                "title": "Tangents"
+                            },
+                            {
+                                "id": "220",
+                                "title": "Transmission"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "157",
+                    "name": "Dread Zeppelin",
+                    "albums": {
+                        "totalCount": 1,
+                        "nodes": [
+                            {
+                                "id": "252",
+                                "title": "Un-Led-Ed"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "160",
+                    "name": "Christina Aguilera featuring BigElf",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "169",
+                    "name": "Black Eyed Peas",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                },
+                {
+                    "id": "260",
+                    "name": "Adrian Leaper & Doreen de Feis",
+                    "albums": {
+                        "totalCount": 1,
+                        "nodes": [
+                            {
+                                "id": "330",
+                                "title": "G\u00f3recki: Symphony No. 3"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "265",
+                    "name": "Julian Bream",
+                    "albums": {
+                        "totalCount": 0,
+                        "nodes": []
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -3,12 +3,15 @@
 namespace Autograph\Demo\Schema\Fields;
 
 use Autograph\Demo\Database\Repositories\CommonRepository;
-use Autograph\Demo\Manager;
+use Autograph\Manager;
 use Autograph\Demo\Schema\TypeManager;
 use Autograph\Demo\Database\Entities\MediaTypes as MediaTypesEntity;
 use Autograph\Demo\Schema\Context;
-use Autograph\Demo\Schema\Query\Filter;
-use Autograph\Demo\Schema\Query\FilterCollection;
+use Autograph\Query\Arguments;
+use Autograph\Query\CollectionFilter;
+use Autograph\Query\FilterInput;
+use Autograph\Query\FilterInputCollection;
+use Doctrine\Common\Collections\Collection;
 use GraphQL\Type\Definition\ResolveInfo;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -20,21 +23,16 @@ use Exception;
  */
 class MediaTypes
 {
-    public function __construct()
-    {
-
-    }
-
     /**
      * @return array<string,mixed>|null
      * @throws Exception
      */
     public function getField(): ?array
     {
-        /** @var FilterCollection $filterCollection */
+        /** @var FilterInputCollection $filterCollection */
         $filterCollection = Manager::getInstance()->getFilterCollection();
 
-        $filter = Filter::create('MediaTypesFilters');
+        $filter = FilterInput::create('MediaTypesFilters');
         $filter->addField('id', ['type' => TypeManager::id()]);
         $filter->addField('name', ['type' => TypeManager::string()]);
 
@@ -56,42 +54,51 @@ class MediaTypes
              * @throws \Doctrine\ORM\NonUniqueResultException
              */
             'resolve' => function ($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array {
-                return $this->resolve($value, $args, $context, $resolveInfo);
+                return $this->resolve($value, new Arguments($args), $context, $resolveInfo);
             }
         ];
     }
 
     /**
      * @param $value
-     * @param array $args
+     * @param array $arguments
      * @param Context $context
      * @param ResolveInfo $resolveInfo
      * @return array|null
      * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws Exception
      */
-    public function resolve($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array
+    public function resolve($value, Arguments $arguments, Context $context, ResolveInfo $resolveInfo): ?array
     {
+        $totalCount = 0;
+        $count = 0;
+
         if (!empty($value) && array_key_exists('mediaTypes', $value)) {
             $mediaTypes = $value['mediaTypes'];
-        } else {
-            $mediaTypes = $this->getData($args);
-        }
 
-        $totalCount = $this->getCount();
+            if($mediaTypes instanceof Collection) {
+                $filter = new CollectionFilter($mediaTypes, $arguments);
+                $mediaTypes = $filter->getFilteredCollection();
+                $totalCount = $filter->getTotalCount();
+                $count = $mediaTypes->count();
+            }
+        } else {
+            $mediaTypes = $this->getData($arguments->getArgs());
+            $totalCount = $this->getCount();
+            $count = count($mediaTypes);
+        }
 
         $nodes = [];
 
         /** @var MediaTypesEntity $mediaType */
         foreach ($mediaTypes as $mediaType) {
-            $nodes[] = [
-                'id' => $mediaType->getId(),
-                'name' => $mediaType->getName()
-            ];
+            $nodes[] = (new MediaType())->resolve(['mediaType' => $mediaType], [], $context, $resolveInfo);
         }
 
         return [
             'totalCount' => $totalCount,
+            'count' => $count,
             'nodes' => $nodes
         ];
     }

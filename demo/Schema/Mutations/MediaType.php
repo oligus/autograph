@@ -4,7 +4,7 @@ namespace Autograph\Demo\Schema\Mutations;
 
 use Autograph\Demo\Database\Entities\MediaTypes;
 use Autograph\Demo\Helpers\ClassHelper;
-use Autograph\Demo\Manager;
+use Autograph\Manager;
 use Autograph\Demo\Schema\Context;
 use Autograph\Demo\Schema\Fields\MediaType as MediaTypeField;
 use Autograph\Demo\Schema\TypeManager;

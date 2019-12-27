@@ -25,15 +25,18 @@ class CommonRepository extends EntityRepository
             ->select('t')
             ->from($this->_entityName, 't');
 
-        foreach ($args['filter'] as $field => $value) {
+        $filter = $args['filter'] ?? [];
+        foreach ($filter as $field => $value) {
             if($field === 'id') {
                 $qb->andWhere($qb->expr()->eq('t.' . $field, ':' . $field));
                 $qb->setParameter($field, $value);
-            } else {
-                $value = str_replace('*', '%', $value);
-                $qb->andWhere($qb->expr()->like('t.' . $field, ':' . $field));
-                $qb->setParameter($field, $value);
+                continue;
             }
+
+            $value = str_replace('*', '', $value);
+            $value = str_replace('%', '', $value);
+            $qb->andWhere($qb->expr()->like('t.' . $field, ':' . $field));
+            $qb->setParameter($field, '%' . $value . '%');
         }
 
         $qb = $this->addPagination($qb, $args);

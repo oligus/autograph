@@ -3,7 +3,7 @@
 namespace Autograph\Demo\Schema\Fields;
 
 use Autograph\Demo\Database\Entities\Genres;
-use Autograph\Demo\Manager;
+use Autograph\Manager;
 use Autograph\Demo\Schema\TypeManager;
 use Autograph\Demo\Schema\Context;
 use GraphQL\Type\Definition\ResolveInfo;

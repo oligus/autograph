@@ -3,12 +3,15 @@
 namespace Autograph\Demo\Schema\Fields;
 
 use Autograph\Demo\Database\Repositories\CommonRepository;
-use Autograph\Demo\Manager;
+use Autograph\Manager;
 use Autograph\Demo\Schema\TypeManager;
 use Autograph\Demo\Database\Entities\Genres as GenresEntity;
 use Autograph\Demo\Schema\Context;
-use Autograph\Demo\Schema\Query\Filter;
-use Autograph\Demo\Schema\Query\FilterCollection;
+use Autograph\Query\Arguments;
+use Autograph\Query\CollectionFilter;
+use Autograph\Query\FilterInput;
+use Autograph\Query\FilterInputCollection;
+use Doctrine\Common\Collections\Collection;
 use GraphQL\Type\Definition\ResolveInfo;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -20,21 +23,16 @@ use Exception;
  */
 class Genres
 {
-    public function __construct()
-    {
-
-    }
-
     /**
      * @return array<string,mixed>|null
      * @throws Exception
      */
     public function getField(): ?array
     {
-        /** @var FilterCollection $filterCollection */
+        /** @var FilterInputCollection $filterCollection */
         $filterCollection = Manager::getInstance()->getFilterCollection();
 
-        $filter = Filter::create('GenresFilters');
+        $filter = FilterInput::create('GenresFilters');
         $filter->addField('id', ['type' => TypeManager::id()]);
         $filter->addField('name', ['type' => TypeManager::string()]);
 
@@ -59,7 +57,8 @@ class Genres
              * @throws \Doctrine\ORM\NonUniqueResultException
              */
             'resolve' => function ($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array {
-                return $this->resolve($value, $args, $context, $resolveInfo);
+                $arguments = new Arguments($args);
+                return $this->resolve($value, $arguments, $context, $resolveInfo);
             }
         ];
     }
@@ -72,29 +71,38 @@ class Genres
      * @return array|null
      * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws Exception
      */
-    public function resolve($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array
+    public function resolve($value, Arguments $arguments, Context $context, ResolveInfo $resolveInfo): ?array
     {
+        $totalCount = 0;
+        $count = 0;
+
         if (!empty($value) && array_key_exists('genres', $value)) {
             $genres = $value['genres'];
-        } else {
-            $genres = $this->getData($args);
-        }
 
-        $totalCount = $this->getCount();
+            if($genres instanceof Collection) {
+                $filter = new CollectionFilter($genres, $arguments);
+                $genres = $filter->getFilteredCollection();
+                $totalCount = $filter->getTotalCount();
+                $count = $genres->count();
+            }
+        } else {
+            $genres = $this->getData($arguments->getArgs());
+            $totalCount = $this->getCount();
+            $count = count($genres);
+        }
 
         $nodes = [];
 
         /** @var GenresEntity $genre */
         foreach ($genres as $genre) {
-            $nodes[] = [
-                'id' => $genre->getId(),
-                'name' => $genre->getName()
-            ];
+            $nodes[] = (new Genre())->resolve(['genre' => $genre], [], $context, $resolveInfo);
         }
 
         return [
             'totalCount' => $totalCount,
+            'count' => $count,
             'nodes' => $nodes
         ];
     }

@@ -1,0 +1,86 @@
+{
+    "data": {
+        "artists": {
+            "totalCount": 275,
+            "nodes": [
+                {
+                    "id": "6",
+                    "name": "Ant\u00f4nio Carlos Jobim",
+                    "albums": {
+                        "totalCount": 2,
+                        "nodes": [
+                            {
+                                "id": "8",
+                                "title": "Warner 25 Anos"
+                            },
+                            {
+                                "id": "34",
+                                "title": "Chill: Brazil (Disc 2)"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "7",
+                    "name": "Apocalyptica",
+                    "albums": {
+                        "totalCount": 1,
+                        "nodes": [
+                            {
+                                "id": "9",
+                                "title": "Plays Metallica By Four Cellos"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "8",
+                    "name": "Audioslave",
+                    "albums": {
+                        "totalCount": 3,
+                        "nodes": [
+                            {
+                                "id": "10",
+                                "title": "Audioslave"
+                            },
+                            {
+                                "id": "11",
+                                "title": "Out Of Exile"
+                            },
+                            {
+                                "id": "271",
+                                "title": "Revelations"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "9",
+                    "name": "BackBeat",
+                    "albums": {
+                        "totalCount": 1,
+                        "nodes": [
+                            {
+                                "id": "12",
+                                "title": "BackBeat Soundtrack"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "10",
+                    "name": "Billy Cobham",
+                    "albums": {
+                        "totalCount": 1,
+                        "nodes": [
+                            {
+                                "id": "13",
+                                "title": "The Best Of Billy Cobham"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

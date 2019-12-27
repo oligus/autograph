@@ -4,7 +4,7 @@ namespace Autograph\Demo\Schema\Mutations;
 
 use Autograph\Demo\Database\Entities\PlayLists;
 use Autograph\Demo\Helpers\ClassHelper;
-use Autograph\Demo\Manager;
+use Autograph\Manager;
 use Autograph\Demo\Schema\Context;
 use Autograph\Demo\Schema\Fields\PlayList as PlayListField;
 use Autograph\Demo\Schema\TypeManager;

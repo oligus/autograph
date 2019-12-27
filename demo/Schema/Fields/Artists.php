@@ -6,10 +6,13 @@ use Autograph\Demo\Database\Repositories\CommonRepository;
 use Autograph\Demo\Schema\TypeManager;
 use Autograph\Demo\Database\Entities\Artists as ArtistsEntity;
 use Autograph\Demo\Schema\Context;
-use Autograph\Demo\Schema\Query\Filter;
-use Autograph\Demo\Schema\Query\FilterCollection;
 use Autograph\Manager;
+use Autograph\Query\Arguments;
+use Autograph\Query\CollectionFilter;
 use Autograph\Query\FilterInput;
+use Autograph\Query\FilterInputCollection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use GraphQL\Type\Definition\ResolveInfo;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -27,14 +30,13 @@ class Artists
      */
     public function getField(): ?array
     {
-        /** @var FilterCollection $filterCollection */
+        /** @var FilterInputCollection $filterCollection */
         $filterCollection = Manager::getInstance()->getFilterCollection();
 
         $filter = FilterInput::create('ArtistsFilters');
         $filter->addField('id', ['type' => TypeManager::id()]);
         $filter->addField('name', ['type' => TypeManager::string()]);
         $filterCollection->add($filter);
-
 
         return [
             'type' => TypeManager::get('Artists'),
@@ -44,9 +46,7 @@ class Artists
             'args' => [
                 'filter' => $filterCollection->get('ArtistsFilters'),
                 'first' => TypeManager::int(),
-                'offset' => TypeManager::int(),
-                'after' => TypeManager::int(),
-                'before' => TypeManager::int()
+                'after' => TypeManager::int()
             ],
             /**
              * @param mixed $value
@@ -55,7 +55,8 @@ class Artists
              * @throws \Doctrine\ORM\NonUniqueResultException
              */
             'resolve' => function ($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array {
-                return $this->resolve($value, $args, $context, $resolveInfo);
+                $arguments = new Arguments($args);
+                return $this->resolve($value, $arguments, $context, $resolveInfo);
             }
         ];
     }
@@ -70,15 +71,26 @@ class Artists
      * @throws NonUniqueResultException
      * @throws Exception
      */
-    public function resolve($value, array $args, Context $context, ResolveInfo $resolveInfo): ?array
+    public function resolve($value, Arguments $arguments, Context $context, ResolveInfo $resolveInfo): ?array
     {
+        $totalCount = 0;
+        $count = 0;
+
         if (!empty($value) && array_key_exists('artists', $value)) {
             $artists = $value['artists'];
+
+            if($artists instanceof Collection) {
+                $filter = new CollectionFilter($artists, $arguments);
+                $artists = $filter->getFilteredCollection();
+                $totalCount = $filter->getTotalCount();
+                $count = $artists->count();
+            }
         } else {
-            $artists = $this->getData($args);
+            $artists = $this->getData($arguments->getArgs());
+            $totalCount = $this->getCount();
+            $count = $artists->count();
         }
 
-        $totalCount = $this->getCount();
         $nodes = [];
 
         /** @var ArtistsEntity $artist */
@@ -88,6 +100,7 @@ class Artists
 
         return [
             'totalCount' => $totalCount,
+            'count' => $count,
             'nodes' => $nodes
         ];
     }
@@ -100,7 +113,7 @@ class Artists
     {
         /** @var CommonRepository $repository */
         $repository = Manager::getInstance()->getEm()->getRepository(ArtistsEntity::class);
-        return $repository->filter($args);
+        return new ArrayCollection($repository->filter($args));
     }
 
     /**

@@ -28,6 +28,7 @@ class Artists extends ObjectType
             'fields' => function (): array {
                 return [
                     'totalCount' =>  TypeManager::int(),
+                    'count' =>  TypeManager::int(),
                     'nodes' => TypeManager::listOf(TypeManager::get('Artist')),
                 ];
             }

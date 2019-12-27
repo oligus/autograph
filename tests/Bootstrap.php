@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Autograph\Demo\Manager;
+use Autograph\Manager;
 use DoctrineFixtures\FixtureManager;
 use DoctrineFixtures\Loaders\CsvLoader;
 use Doctrine\DBAL\DBALException;
