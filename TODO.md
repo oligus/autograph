@@ -1,5 +1,7 @@
 # TODO
 
+* Fix mock database for testing
+
 * Filter should have ordered by
 * Create annotations
 
@@ -9,6 +11,6 @@ $autograph = new Autograph\Autograph($em);
 $autograph->setQuery($query);
 $autograph->setVariables($variables);
 
-$autograph->render();
+$autograph->result();
 ```
 

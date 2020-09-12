@@ -2,13 +2,14 @@
 
 namespace Tests;
 
-use Autograph\Demo\Response;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\Tools\Setup;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionException;
-use Exception;
 
 /**
  * Class TestCase
@@ -16,6 +17,34 @@ use Exception;
  */
 abstract class TestCase extends PHPUnitTestCase
 {
+    /**
+     * @var EntityManager|null
+     */
+    private ?EntityManager $em = null;
+
+    public function getEntityManager(): EntityManager
+    {
+        if ($this->em instanceof EntityManager) {
+            return $this->em;
+        }
+
+        $isDevMode = true;
+        $proxyDir = null;
+        $cache = null;
+        $useSimpleAnnotationReader = false;
+
+        $config = Setup::createAnnotationMetadataConfiguration([SRC_PATH], $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
+
+        $conn = [
+            'driver' => 'pdo_sqlite',
+            'path' => TEST_PATH . '/database/northwind.sqlite',
+        ];
+
+        $this->em = EntityManager::create($conn, $config);
+
+        return $this->em;
+    }
+
     /**
      * @param $className
      * @param $methodName
@@ -64,19 +93,4 @@ abstract class TestCase extends PHPUnitTestCase
         return $mock;
     }
 
-    /**
-     * @param $query
-     * @param array $variables
-     * @return mixed
-     * @throws Exception
-     */
-    protected function query($query, $variables = [])
-    {
-        $response = new Response([
-            'query' => $query,
-            'variables' => $variables
-        ]);
-
-        return $response->get();
-    }
 }

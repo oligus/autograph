@@ -4,6 +4,7 @@ namespace Autograph\Helpers;
 
 use ReflectionClass;
 use ReflectionException;
+use ReflectionClassConstant;
 use Exception;
 
 /**
@@ -13,8 +14,6 @@ use Exception;
 class ClassHelper
 {
     /**
-     * @param object $class
-     * @param string $property
      * @return mixed
      * @throws ReflectionException
      * @throws Exception
@@ -27,7 +26,7 @@ class ClassHelper
             return $class->$method();
         }
 
-        $reflection = new \ReflectionClass($class);
+        $reflection = new ReflectionClass($class);
 
         if ($reflection->hasProperty($property)) {
             $reflectionProperty = $reflection->getProperty($property);
@@ -51,7 +50,7 @@ class ClassHelper
             return;
         }
 
-        $reflection = new \ReflectionClass($class);
+        $reflection = new ReflectionClass($class);
 
         if ($reflection->hasProperty($property)) {
             $reflectionProperty = $reflection->getProperty($property);
@@ -74,5 +73,33 @@ class ClassHelper
         $reflection = new ReflectionClass($class);
 
         return $reflection->hasProperty($property);
+    }
+
+    /**
+     * @return mixed|null
+     * @phan-suppress PhanUnusedVariableCaughtException
+     */
+    public static function getClassConstantValue(object $class, string $constant)
+    {
+        try {
+            $classConstant = new ReflectionClassConstant($class, $constant);
+            $constantValue = $classConstant->getValue();
+        } catch (Exception $e) {
+            $constantValue = null;
+        }
+
+        return $constantValue;
+    }
+
+    /**
+     * @return array<mixed>|null
+     */
+    public static function getCaller(int $depth = 1): ?array
+    {
+        try {
+            throw new Exception;
+        } catch (Exception $e) {
+            return $e->getTrace()[$depth] ?? null;
+        }
     }
 }
