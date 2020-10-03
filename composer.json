@@ -19,7 +19,7 @@
         "test": "phpunit",
         "test-unit": "phpunit --testsuite unit",
         "test-e2e": "phpunit  --testsuite e2e",
-        "coverage": "vendor/bin/phpunit --log-junit ./test-reports/junit.xml",
+        "coverage": "vendor/bin/phpunit --coverage-clover=coverage.xml",
         "lint": "phpcs src",
         "lint-fix": "phpcbf src",
         "md": "phpmd src text phpmd.xml",

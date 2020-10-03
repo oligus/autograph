@@ -1,0 +1,15 @@
+language: php
+php:
+  - '7.4'
+
+install:
+  - composer install
+
+script:
+  - composer coverage
+  - composer lint
+  - composer md
+  - composer analyze
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
