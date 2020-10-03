@@ -1,6 +1,5 @@
 # Autograph
 
-
 [![Build Status](https://travis-ci.org/oligus/autograph.svg?branch=master)](https://travis-ci.org/oligus/autograph)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Codecov.io](https://codecov.io/gh/oligus/autograph/branch/master/graphs/badge.svg)](https://codecov.io/gh/oligus/autograph)
