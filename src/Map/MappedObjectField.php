@@ -15,10 +15,14 @@ class MappedObjectField
 {
     private ObjectField $objectField;
     private ReflectionProperty $reflectionProperty;
+
+    /**
+     * @var array<string>
+     */
     private array $fieldMapping;
 
     /**
-     * @param array $fieldMapping
+     * @param array<string> $fieldMapping
      */
     public function __construct(ObjectField $objectField, ReflectionProperty $reflectionProperty, array $fieldMapping)
     {
@@ -27,7 +31,7 @@ class MappedObjectField
         $this->fieldMapping = $fieldMapping;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         if (isset($this->objectField->name)) {
             return $this->objectField->name;
@@ -48,7 +52,7 @@ class MappedObjectField
     public function getType(): Type
     {
         if (isset($this->objectField->type)) {
-            $inType = $this->objectField->type;
+            $inType = $this->objectField->type ?? 'string';
         } else {
             $inType = $this->fieldMapping['type'];
         }
@@ -59,7 +63,6 @@ class MappedObjectField
 
         return TypeManager::get($inType);
     }
-
 
     /**
      * @return array<mixed>

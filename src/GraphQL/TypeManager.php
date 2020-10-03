@@ -15,7 +15,7 @@ class TypeManager
      */
     private static array $types = [];
 
-    public static function get($typeName): Definition\Type
+    public static function get(string $typeName): Definition\Type
     {
         if (!array_key_exists($typeName, self::$types)) {
             self::$types[$typeName] = self::{$typeName}();

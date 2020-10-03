@@ -4,6 +4,10 @@ namespace Autograph\GraphQL;
 
 use Doctrine\ORM\EntityManager;
 
+/**
+ * Class AppContext
+ * @package Autograph\GraphQL
+ */
 class AppContext
 {
     private EntityManager $em;

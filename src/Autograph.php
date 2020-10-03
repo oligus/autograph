@@ -20,8 +20,14 @@ class Autograph
 
     private string $query;
 
+    /**
+     * @var array<mixed>
+     */
     private array $variables;
 
+    /**
+     * @param array<mixed> $variables
+     */
     public function __construct(EntityManager $em, string $query, array $variables)
     {
         $this->em = $em;
@@ -52,6 +58,12 @@ class Autograph
             $this->variables
         );
 
-        return json_encode($result->toArray(DebugFlag::INCLUDE_TRACE));
+        $returnString = json_encode($result->toArray(DebugFlag::INCLUDE_TRACE));
+
+        if (is_bool($returnString)) {
+            return null;
+        }
+
+        return $returnString;
     }
 }

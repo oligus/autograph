@@ -6,6 +6,9 @@ use Closure;
 use Doctrine\ORM\Mapping\Annotation;
 
 /**
+ * Class ObjectField
+ * @package Autograph\Map\Annotations
+ *
  * @Annotation
  * @Target({"PROPERTY"})
  */

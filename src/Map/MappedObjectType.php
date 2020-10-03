@@ -5,6 +5,8 @@ namespace Autograph\Map;
 use Autograph\Map\Annotations\ObjectField;
 use Autograph\Map\Annotations\ObjectType;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 
 /**
@@ -18,11 +20,14 @@ class MappedObjectType
     private ClassMetadata $meta;
 
     /**
-     * @var array<ObjectField>
+     * @var array<MappedObjectField>
      */
     private array $fields = [];
 
-    public function __construct(ObjectType $objectType, ClassMetadata $meta)
+    /**
+     * @throws MappingException
+     */
+    public function __construct(ObjectType $objectType, ClassMetadataInfo $meta)
     {
         $this->objectType = $objectType;
         $this->meta = $meta;
@@ -41,7 +46,7 @@ class MappedObjectType
     public function getName(): string
     {
         if (isset($this->objectType->name)) {
-            return $this->objectType->name;
+            return $this->objectType->name ?? 'undefined';
         }
 
         return $this->meta->getReflectionClass()->getShortName();

@@ -4,6 +4,8 @@ namespace Autograph\GraphQL;
 
 use Autograph\Helpers\ClassHelper;
 use Autograph\Map\MappedObjectType;
+use Closure;
+use Exception;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
@@ -20,15 +22,25 @@ class EntityResolver
         $this->objectType = $objectType;
     }
 
-    public function resolve()
+    public function resolve(): Closure
     {
-        return function ($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo) {
-            $entity = $appContext->getEm()->getRepository($this->objectType->getClassName())->find($args['id']);
+        /**
+         * @param mixed $value
+         * @param array<mixed> $args
+         * @return array<mixed>
+         * @suppress PhanUnusedClosureParameter
+         * @throws Exception
+         */
+        return function ($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo): array {
+            $className = $this->objectType->getClassName();
+            $entity = $appContext->getEm()->getRepository($className)->find($args['id']);
 
             $result = [];
 
-            foreach ($this->objectType->getFields() as $field) {
-                $result[$field['name']] =  ClassHelper::getPropertyValue($entity, $field['name']);
+            if ($entity instanceof $className) {
+                foreach ($this->objectType->getFields() as $field) {
+                    $result[$field['name']] =  ClassHelper::getPropertyValue($entity, $field['name']);
+                }
             }
 
             return $result;

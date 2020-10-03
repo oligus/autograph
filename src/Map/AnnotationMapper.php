@@ -6,6 +6,8 @@ use Autograph\GraphQL\TypeManager;
 use Autograph\Map\Annotations\ObjectType;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\MappingException;
 
 /**
  * Class AnnotationMapper
@@ -18,6 +20,9 @@ class AnnotationMapper
      */
     private array $objectMap = [];
 
+    /**
+     * @throws MappingException
+     */
     public function __construct(EntityManagerInterface $em)
     {
         $reader = new AnnotationReader();
@@ -26,7 +31,7 @@ class AnnotationMapper
         foreach ($metaData as $meta) {
             $object = $reader->getClassAnnotation($meta->getReflectionClass(), ObjectType::class);
 
-            if ($object instanceof ObjectType) {
+            if ($object instanceof ObjectType && $meta instanceof ClassMetadataInfo) {
                 $objectType = new MappedObjectType($object, $meta);
                 $this->objectMap[] = $objectType;
                 TypeManager::add(ObjectFactory::create($objectType));
@@ -34,6 +39,9 @@ class AnnotationMapper
         }
     }
 
+    /**
+     * @return array<MappedObjectType>
+     */
     public function getObjectMap(): array
     {
         return $this->objectMap;

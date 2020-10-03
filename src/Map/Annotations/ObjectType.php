@@ -5,6 +5,9 @@ namespace Autograph\Map\Annotations;
 use Doctrine\ORM\Mapping\Annotation;
 
 /**
+ * Class ObjectType
+ * @package Autograph\Map\Annotations
+ *
  * @Annotation
  * @Target("CLASS")
  */
