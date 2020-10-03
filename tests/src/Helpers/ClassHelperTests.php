@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Helpers;
+namespace Autograph\Tests\Helpers;
 
 use Autograph\Helpers\ClassHelper;
 use Tests\TestCase;
@@ -8,10 +8,10 @@ use Exception;
 use ReflectionException;
 
 /**
- * Class ClassHelperTest
- * @package Tests\Helpers
+ * Class ClassHelperTests
+ * @package Autograph\Tests\Helpers
  */
-class ClassHelperTest extends TestCase
+class ClassHelperTests extends TestCase
 {
     /**
      * @throws ReflectionException
@@ -19,7 +19,7 @@ class ClassHelperTest extends TestCase
     public function testGetPropertyValue()
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Property [property3] not found in class [Tests\Helpers\TestClass]');
+        $this->expectExceptionMessage('Property [property3] not found in class [Autograph\Tests\Helpers\TestClass]');
 
         $class = new TestClass();
         ClassHelper::setPropertyValue($class, 'property1', 'test');

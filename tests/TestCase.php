@@ -2,7 +2,9 @@
 
 namespace Tests;
 
+use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Setup;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
@@ -31,9 +33,10 @@ abstract class TestCase extends PHPUnitTestCase
         $isDevMode = true;
         $proxyDir = null;
         $cache = null;
-        $useSimpleAnnotationReader = false;
 
-        $config = Setup::createAnnotationMetadataConfiguration([SRC_PATH], $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
+        $config = Setup::createConfiguration($isDevMode);
+        $driver = new AnnotationDriver(new AnnotationReader(), [TEST_PATH . '/Application/Entities']);
+        $config->setMetadataDriverImpl($driver);
 
         $conn = [
             'driver' => 'pdo_sqlite',
