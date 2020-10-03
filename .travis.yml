@@ -4,6 +4,7 @@ php:
 
 install:
   - composer install
+  - pecl install ast
 
 script:
   - composer coverage
