@@ -2,18 +2,14 @@
 
 namespace Autograph\Tests\Map;
 
-use Autograph\Exceptions\GeneralException;
 use Autograph\Map\Annotations\ObjectType;
-use Autograph\Map\MappedObjectField;
 use Autograph\Map\MappedObjectType;
 use Autograph\Map\ObjectFactory;
 use Autograph\Tests\Application\Entities\Categories;
 use Doctrine\Persistence\Mapping\MappingException;
-use ReflectionException;
-use ReflectionProperty;
-use Tests\TestCase;
 use GraphQL\Type\Definition\ObjectType as GraphQLObject;
-
+use ReflectionException;
+use Tests\TestCase;
 
 /**
  * Class ObjectFactoryTest
@@ -21,11 +17,10 @@ use GraphQL\Type\Definition\ObjectType as GraphQLObject;
  */
 class ObjectFactoryTest extends TestCase
 {
-
     /**
-     * @throws GeneralException
      * @throws MappingException
      * @throws ReflectionException
+     * @throws \Doctrine\ORM\Mapping\MappingException
      */
     public function testCreate()
     {

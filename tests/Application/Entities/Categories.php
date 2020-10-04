@@ -8,8 +8,8 @@ use Autograph\Map\Annotations as AUG;
 /**
  * Categories
  *
- * @ORM\Table(name="Categories")
  * @ORM\Entity
+ * @ORM\Table(name="Categories")
  * @AUG\ObjectType(name="Category", description="A category")
  */
 class Categories
@@ -34,6 +34,7 @@ class Categories
      * @var string|null
      *
      * @ORM\Column(name="Description", type="text", nullable=true)
+     * @AUG\ObjectField
      */
     protected ?string $description;
 
@@ -41,6 +42,7 @@ class Categories
      * @var string|null
      *
      * @ORM\Column(name="Picture", type="blob", nullable=true)
+     * @AUG\ObjectField
      */
     protected $picture;
 }

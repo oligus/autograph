@@ -2,6 +2,7 @@
 
 namespace Autograph\Map;
 
+use Autograph\Doctrine\TypeConversion;
 use Autograph\GraphQL\TypeManager;
 use Autograph\Map\Annotations\ObjectField;
 use GraphQL\Type\Definition\Type;
@@ -21,6 +22,8 @@ class MappedObjectField
      */
     private array $fieldMapping;
 
+    private TypeConversion $conversion;
+
     /**
      * @param array<string> $fieldMapping
      */
@@ -29,6 +32,7 @@ class MappedObjectField
         $this->objectField = $objectField;
         $this->reflectionProperty = $reflectionProperty;
         $this->fieldMapping = $fieldMapping;
+        $this->conversion = new TypeConversion($this->fieldMapping);
     }
 
     public function getName(): ?string
@@ -53,15 +57,10 @@ class MappedObjectField
     {
         if (isset($this->objectField->type)) {
             $inType = $this->objectField->type ?? 'string';
-        } else {
-            $inType = $this->fieldMapping['type'];
+            return TypeManager::get($inType);
         }
 
-        if ($this->fieldMapping['id'] ?? false) {
-            $inType = 'ID';
-        }
-
-        return TypeManager::get($inType);
+        return $this->conversion->getType();
     }
 
     /**
