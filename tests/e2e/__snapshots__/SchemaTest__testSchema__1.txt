@@ -1,9 +1,9 @@
 """A category"""
 type Category {
-  id: ID
+  id: ID!
 
   """Name of category"""
-  name: String
+  name: String!
   description: String
   picture: String
 }
