@@ -17,4 +17,14 @@ class TypeConversionTest extends TestCase
         $conversion = new TypeConversion(['type' => 'text']);
         $this->assertInstanceOf(StringType::class, $conversion->getType());
     }
+
+    public function testIsNullable()
+    {
+        $conversion = new TypeConversion(['nullable' => true]);
+        $this->assertTrue($conversion->isNullable());
+        $conversion = new TypeConversion(['nullable' => false]);
+        $this->assertFalse($conversion->isNullable());
+        $conversion = new TypeConversion([]);
+        $this->assertFalse($conversion->isNullable());
+    }
 }

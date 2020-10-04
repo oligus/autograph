@@ -68,4 +68,9 @@ class TypeConversion
     {
         return $this->fieldMapping['id'] ?? false;
     }
+
+    public function isNullable(): bool
+    {
+        return $this->fieldMapping['nullable'] ?? false;
+    }
 }

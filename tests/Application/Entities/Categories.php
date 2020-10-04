@@ -15,7 +15,7 @@ use Autograph\Map\Annotations as AUG;
 class Categories
 {
     /**
-     * @ORM\Column(name="CategoryID", type="integer", nullable=true)
+     * @ORM\Column(name="CategoryID", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @AUG\ObjectField
@@ -23,12 +23,10 @@ class Categories
     protected int $id;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="CategoryName", type="text", nullable=true)
-     * @AUG\ObjectField(name="name", type="String", description="Name of category")
+     * @ORM\Column(name="CategoryName", type="text", nullable=false)
+     * @AUG\ObjectField(name="name", type="String!", description="Name of category")
      */
-    protected ?string $name;
+    protected string $name;
 
     /**
      * @var string|null

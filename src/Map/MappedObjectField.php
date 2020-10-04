@@ -57,7 +57,17 @@ class MappedObjectField
     {
         if (isset($this->objectField->type)) {
             $inType = $this->objectField->type ?? 'string';
+
+            if (strpos($inType, '!')) {
+                $inType = trim($inType, '!');
+                return TypeManager::nonNull(TypeManager::get($inType));
+            }
+
             return TypeManager::get($inType);
+        }
+
+        if (!$this->conversion->isNullable()) {
+            return TypeManager::nonNull($this->conversion->getType());
         }
 
         return $this->conversion->getType();

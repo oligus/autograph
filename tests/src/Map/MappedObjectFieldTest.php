@@ -7,6 +7,7 @@ use Autograph\Map\MappedObjectField;
 use Autograph\Tests\Application\Entities\Categories;
 use GraphQL\Type\Definition\IDType;
 use GraphQL\Type\Definition\IntType;
+use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\StringType;
 use ReflectionProperty;
 use Tests\TestCase;
@@ -62,10 +63,19 @@ class MappedObjectFieldTest extends TestCase
         $objectField = new ObjectField();
         $property = new ReflectionProperty(Categories::class, 'id');
         $field = new MappedObjectField($objectField, $property, ["type" => "integer"]);
-        $this->assertInstanceOf(IntType::class, $field->getType());
+        $this->assertInstanceOf(NonNull::class, $field->getType());
+        $this->assertInstanceOf(IntType::class, $field->getType()->getOfType());
         $field = new MappedObjectField($objectField, $property, ["type" => "string"]);
-        $this->assertInstanceOf(StringType::class, $field->getType());
+        $this->assertInstanceOf(NonNull::class, $field->getType());
+        $this->assertInstanceOf(StringType::class, $field->getType()->getOfType());
         $field = new MappedObjectField($objectField, $property, ["type" => "integer", "id" => true]);
-        $this->assertInstanceOf(IDType::class, $field->getType());
+        $this->assertInstanceOf(NonNull::class, $field->getType());
+        $this->assertInstanceOf(IDType::class, $field->getType()->getOfType());
+
+        $property = new ReflectionProperty(Categories::class, 'name');
+        $objectField->type = 'String!';
+        $field = new MappedObjectField($objectField, $property, []);
+        $this->assertInstanceOf(NonNull::class, $field->getType());
+        $this->assertInstanceOf(StringType::class, $field->getType()->getOfType());
     }
 }
