@@ -4,7 +4,7 @@ namespace Autograph\Tests\Map;
 
 use Autograph\Map\Annotations\ObjectField;
 use Autograph\Map\MappedObjectField;
-use Autograph\Tests\Application\Entities\Categories;
+use Autograph\Tests\Application\Entities\Album;
 use GraphQL\Type\Definition\IDType;
 use GraphQL\Type\Definition\IntType;
 use GraphQL\Type\Definition\NonNull;
@@ -37,7 +37,7 @@ class MappedObjectFieldTest extends TestCase
     public function testGetName()
     {
         $objectField = new ObjectField();
-        $property = new ReflectionProperty(Categories::class, 'id');
+        $property = new ReflectionProperty(Album::class, 'id');
         $field = new MappedObjectField($objectField, $property, []);
         $this->assertEquals('id', $field->getName());
 
@@ -49,7 +49,7 @@ class MappedObjectFieldTest extends TestCase
     public function testGetDescription()
     {
         $objectField = new ObjectField();
-        $property = new ReflectionProperty(Categories::class, 'id');
+        $property = new ReflectionProperty(Album::class, 'id');
         $field = new MappedObjectField($objectField, $property, []);
         $this->assertNull($field->getDescription());
 
@@ -61,7 +61,7 @@ class MappedObjectFieldTest extends TestCase
     public function testGetType()
     {
         $objectField = new ObjectField();
-        $property = new ReflectionProperty(Categories::class, 'id');
+        $property = new ReflectionProperty(Album::class, 'id');
         $field = new MappedObjectField($objectField, $property, ["type" => "integer"]);
         $this->assertInstanceOf(NonNull::class, $field->getType());
         $this->assertInstanceOf(IntType::class, $field->getType()->getOfType());
@@ -72,7 +72,7 @@ class MappedObjectFieldTest extends TestCase
         $this->assertInstanceOf(NonNull::class, $field->getType());
         $this->assertInstanceOf(IDType::class, $field->getType()->getOfType());
 
-        $property = new ReflectionProperty(Categories::class, 'name');
+        $property = new ReflectionProperty(Album::class, 'title');
         $objectField->type = 'String!';
         $field = new MappedObjectField($objectField, $property, []);
         $this->assertInstanceOf(NonNull::class, $field->getType());

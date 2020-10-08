@@ -3,8 +3,11 @@
 namespace Autograph\Tests\Map;
 
 use Autograph\Map\Annotations\ObjectType;
+use Autograph\Map\Enums\QueryType;
 use Autograph\Map\MappedObjectType;
-use Autograph\Tests\Application\Entities\Categories;
+use Autograph\Tests\Application\Entities\Album;
+use Doctrine\ORM\Mapping\MappingException;
+use ReflectionException;
 use Tests\TestCase;
 
 /**
@@ -13,25 +16,70 @@ use Tests\TestCase;
  */
 class MappedObjectTypeTest extends TestCase
 {
+    /**
+     * @throws MappingException
+     * @throws \Doctrine\Persistence\Mapping\MappingException
+     * @throws ReflectionException
+     */
     public function testGetName()
     {
         $objectType = new ObjectType();
-        $meta = $this->getEntityManager()->getMetadataFactory()->getMetadataFor(Categories::class);
+        $meta = $this->getEntityManager()->getMetadataFactory()->getMetadataFor(Album::class);
         $obj = new MappedObjectType($objectType, $meta);
-        $this->assertEquals('Categories', $obj->getName());
+        $this->assertEquals('Album', $obj->getName());
 
-        $objectType->name = 'Category';
-        $this->assertEquals('Category', $obj->getName());
+        $objectType->name = 'Albums';
+        $this->assertEquals('Albums', $obj->getName());
     }
 
+    /**
+     * @throws MappingException
+     * @throws ReflectionException
+     * @throws \Doctrine\Persistence\Mapping\MappingException
+     */
     public function testGetDescription()
     {
         $objectType = new ObjectType();
-        $meta = $this->getEntityManager()->getMetadataFactory()->getMetadataFor(Categories::class);
+        $meta = $this->getEntityManager()->getMetadataFactory()->getMetadataFor(Album::class);
         $obj = new MappedObjectType($objectType, $meta);
         $this->assertNull($obj->getDescription());
 
         $objectType->description = 'A Category';
         $this->assertEquals('A Category', $obj->getDescription());
+    }
+
+    /**
+     * @throws MappingException
+     * @throws ReflectionException
+     * @throws \Doctrine\Persistence\Mapping\MappingException
+     */
+    public function testGetQueryType()
+    {
+        $objectType = new ObjectType();
+        $meta = $this->getEntityManager()->getMetadataFactory()->getMetadataFor(Album::class);
+        $obj = new MappedObjectType($objectType, $meta);
+        $this->assertEquals(QueryType::NONE(), $obj->getQueryType());
+
+        $objectType->queryType = 'list';
+        $this->assertEquals(QueryType::LIST(), $obj->getQueryType());
+
+        $objectType->queryType = 'single';
+        $this->assertEquals(QueryType::SINGLE(), $obj->getQueryType());
+    }
+
+    /**
+     * @throws MappingException
+     * @throws ReflectionException
+     * @throws \Doctrine\Persistence\Mapping\MappingException
+     */
+    public function testGetQueryField()
+    {
+        $objectType = new ObjectType();
+        $meta = $this->getEntityManager()->getMetadataFactory()->getMetadataFor(Album::class);
+        $obj = new MappedObjectType($objectType, $meta);
+        $this->assertEquals('Album', $obj->getQueryField());
+
+        $objectType->queryField = 'albums';
+        $this->assertEquals('albums', $obj->getQueryField());
     }
 }

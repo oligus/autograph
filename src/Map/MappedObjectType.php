@@ -4,10 +4,12 @@ namespace Autograph\Map;
 
 use Autograph\Map\Annotations\ObjectField;
 use Autograph\Map\Annotations\ObjectType;
+use Autograph\Map\Enums\QueryType;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\Persistence\Mapping\ClassMetadata;
+use Exception;
 
 /**
  * Class ObjectType
@@ -64,6 +66,29 @@ class MappedObjectType
     public function getClassName(): string
     {
         return $this->meta->getReflectionClass()->name;
+    }
+
+    public function getQueryType(): QueryType
+    {
+        $value = strtoupper($this->objectType->queryType ?? QueryType::NONE);
+        $type = QueryType::NONE();
+
+        try {
+            $type = QueryType::$value();
+            // @phan-suppress-next-line PhanUnusedVariableCaughtException
+        } catch (Exception $e) {
+        }
+
+        return $type;
+    }
+
+    public function getQueryField(): string
+    {
+        if (isset($this->objectType->queryField) && is_string($this->objectType->queryField)) {
+            return (string) $this->objectType->queryField;
+        }
+
+        return $this->getName();
     }
 
     /**

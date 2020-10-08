@@ -16,4 +16,8 @@ final class ObjectType implements Annotation
     public ?string $name;
 
     public ?string $description;
+
+    public ?string $queryType;
+
+    public ?string $queryField;
 }

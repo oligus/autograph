@@ -2,12 +2,10 @@
 
 namespace Autograph\Tests\Map;
 
-use Autograph\Exceptions\GeneralException;
 use Autograph\Map\AnnotationMapper;
 use Autograph\Map\QueryFactory;
-use Doctrine\Persistence\Mapping\MappingException;
+use Doctrine\ORM\Mapping\MappingException;
 use GraphQL\Type\Definition\ObjectType;
-use ReflectionException;
 use Tests\TestCase;
 
 /**
@@ -18,9 +16,7 @@ class QueryFactoryTest extends TestCase
 {
 
     /**
-     * @throws GeneralException
      * @throws MappingException
-     * @throws ReflectionException
      */
     public function testCreate()
     {
@@ -33,7 +29,7 @@ class QueryFactoryTest extends TestCase
         $this->assertInstanceOf(ObjectType::class, $query);
 
         $expected = [
-            'Category'
+            'albums'
         ];
         $this->assertEquals($expected, array_keys($query->getFields()));
     }

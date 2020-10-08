@@ -311,6 +311,7 @@ return [
         'src',
         'vendor/webonyx/graphql-php',
         'vendor/doctrine',
+        'vendor/myclabs/php-enum',
     ],
 
     // List of case-insensitive file extensions supported by Phan.

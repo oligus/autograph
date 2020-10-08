@@ -46,4 +46,30 @@ class EntityResolver
             return $result;
         };
     }
+
+    public function resolveList(): Closure
+    {
+        /**
+         * @param mixed $value
+         * @param array<mixed> $args
+         * @return array<mixed>
+         * @suppress PhanUnusedClosureParameter
+         * @throws Exception
+         */
+        return function ($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo): array {
+            $className = $this->objectType->getClassName();
+            $entities = $appContext->getEm()->getRepository($className)->findAll();
+            $result = [];
+
+            foreach ($entities as $entity) {
+                $fields = [];
+                foreach ($this->objectType->getFields() as $field) {
+                    $fields[$field['name']] =  ClassHelper::getPropertyValue($entity, $field['name']);
+                }
+                $result[] = $fields;
+            }
+
+            return $result;
+        };
+    }
 }

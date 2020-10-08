@@ -4,6 +4,7 @@ namespace Autograph\Map;
 
 use Autograph\GraphQL\EntityResolver;
 use Autograph\GraphQL\TypeManager;
+use Autograph\Map\Enums\QueryType;
 use GraphQL\Type\Definition\ObjectType;
 
 /**
@@ -19,12 +20,22 @@ class QueryFactory
         /** @var MappedObjectType $objectType */
         foreach ($mapper->getObjectMap() as $objectType) {
             $resolver = new EntityResolver($objectType);
-
-            $fields[$objectType->getName()] = [
-                'type' => TypeManager::get($objectType->getName()),
-                'args' => ['id' => TypeManager::nonNull(TypeManager::id())],
-                'resolve' => $resolver->resolve()
-            ];
+            switch ($objectType->getQueryType()) {
+                case QueryType::SINGLE():
+                    $fields[$objectType->getQueryField()] = [
+                        'type' => TypeManager::get($objectType->getName()),
+                        'args' => ['id' => TypeManager::nonNull(TypeManager::id())],
+                        'resolve' => $resolver->resolve()
+                    ];
+                    break;
+                case QueryType::LIST():
+                    $fields[$objectType->getQueryField()] = [
+                        'type' => TypeManager::listOf(TypeManager::get($objectType->getName())),
+                        'resolve' => $resolver->resolveList()
+                    ];
+                    break;
+                default:
+            }
         }
 
         $config = [

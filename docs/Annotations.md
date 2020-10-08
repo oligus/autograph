@@ -1,7 +1,45 @@
 # Annotations
 
-[@ObjectField](docs/Annotations.md#ojectfield)<br />
-[@ObjectType](docs/Annotations.md#objecttype)<br />
+[@ObjectType](Annotations.md#objecttype)<br />
+[@ObjectField](Annotations.md#objectfield)<br />
+
+## @ObjectType
+
+Optional attributes:
+* **name** Name of the GraphQL object type, if omitted will be set to current class name
+* **description** GraphQL object type description.
+* **queryField** GraphQL root query name
+* **queryType** GraphQL root query type, one of the following
+  * **none**    No root query    
+  * **single**  Single record query
+  * **list**    List of objects
+
+Example:
+
+```php
+use Autograph\Map\Annotations as AUG;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="albums")
+ * @AUG\ObjectType(name="album", description="Music album", queryField="albums", queryType="list")
+ */
+class Album
+...
+```
+
+Rendered GraphQL:
+```graphql
+"""Music album"""
+type album {
+  ...
+}
+
+type Query {
+  albums: [album]
+  ...
+}
+```
 
 ## @ObjectField
 
@@ -23,24 +61,5 @@ use Autograph\Map\Annotations as AUG;
 protected string $name;
 ```
 
-## @ObjectType
-
-Optional attributes:
-* **name** Name of the GraphQL object type, if omitted will be set to current class name
-* **description** GraphQL object type description.
-
-Examples:
-
-```php
-use Autograph\Map\Annotations as AUG;
-
-/**
- * @ORM\Entity
- * @ORM\Table(name="Categories")
- * @AUG\ObjectType(name="Category", description="A category")
- */
-class Categories
-...
-```
 
 
