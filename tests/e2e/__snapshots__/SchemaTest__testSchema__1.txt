@@ -1,14 +1,9 @@
-"""A category"""
-type Category {
-  id: ID!
-
-  """Name of category"""
-  name: String!
-  description: String
-  picture: String
-}
-
 """Stimplify Query fields"""
 type Query {
-  Category(id: ID!): Category
+  albums: [album]
+}
+
+"""Music album"""
+type album {
+  id: ID!
 }

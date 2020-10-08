@@ -6,6 +6,7 @@ use Autograph\GraphQL\AppContext;
 use Autograph\Map\AnnotationMapper;
 use Autograph\Map\QueryFactory;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\MappingException;
 use GraphQL\Error\DebugFlag;
 use GraphQL\GraphQL;
 use GraphQL\Type\Schema;
@@ -35,10 +36,12 @@ class Autograph
         $this->variables = $variables;
     }
 
+    /**
+     * @throws MappingException
+     */
     public function result(): ?string
     {
         $mapper = new AnnotationMapper($this->em);
-
 
         // Create Query object
         $query = QueryFactory::create($mapper);

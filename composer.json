@@ -33,7 +33,8 @@
         "ext-json": "*",
         "webonyx/graphql-php": "^14.0",
         "symfony/console": "^5.1",
-        "doctrine/orm": "^2.7"
+        "doctrine/orm": "^2.7",
+        "myclabs/php-enum": "^1.7"
     },
     "require-dev": {
         "spatie/phpunit-snapshot-assertions": "^4.2",

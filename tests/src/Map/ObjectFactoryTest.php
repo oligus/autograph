@@ -5,7 +5,7 @@ namespace Autograph\Tests\Map;
 use Autograph\Map\Annotations\ObjectType;
 use Autograph\Map\MappedObjectType;
 use Autograph\Map\ObjectFactory;
-use Autograph\Tests\Application\Entities\Categories;
+use Autograph\Tests\Application\Entities\Album;
 use Doctrine\Persistence\Mapping\MappingException;
 use GraphQL\Type\Definition\ObjectType as GraphQLObject;
 use ReflectionException;
@@ -28,7 +28,7 @@ class ObjectFactoryTest extends TestCase
         $objectType->name = 'category';
         $objectType->description = 'A category';
 
-        $meta = $this->getEntityManager()->getMetadataFactory()->getMetadataFor(Categories::class);
+        $meta = $this->getEntityManager()->getMetadataFactory()->getMetadataFor(Album::class);
 
         $objectType = new MappedObjectType($objectType, $meta);
 

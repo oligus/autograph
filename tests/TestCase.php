@@ -5,13 +5,12 @@ namespace Tests;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Setup;
-use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use ReflectionClass;
-use ReflectionMethod;
 use ReflectionException;
+use ReflectionMethod;
 
 /**
  * Class TestCase
@@ -31,8 +30,6 @@ abstract class TestCase extends PHPUnitTestCase
         }
 
         $isDevMode = true;
-        $proxyDir = null;
-        $cache = null;
 
         $config = Setup::createConfiguration($isDevMode);
         $driver = new AnnotationDriver(new AnnotationReader(), [TEST_PATH . '/Application/Entities']);
@@ -40,10 +37,11 @@ abstract class TestCase extends PHPUnitTestCase
 
         $conn = [
             'driver' => 'pdo_sqlite',
-            'path' => TEST_PATH . '/database/northwind.sqlite',
+            'path' => TEST_PATH . '/database/chinook.db',
         ];
 
         $this->em = EntityManager::create($conn, $config);
+
 
         return $this->em;
     }
