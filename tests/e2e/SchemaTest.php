@@ -19,6 +19,8 @@ class SchemaTest extends TestCase
      */
     public function testSchema()
     {
+        $em = $this->getEntityManager();
+        $em->clear();
         $mapper = new AnnotationMapper($this->getEntityManager());
         $query = QueryFactory::create($mapper);
         $schema = new Schema([

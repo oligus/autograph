@@ -2,6 +2,7 @@
 
 namespace Autograph\Map;
 
+use Autograph\GraphQL\TypeManager;
 use Autograph\Map\Annotations\ObjectField;
 use Autograph\Map\Annotations\ObjectType;
 use Autograph\Map\Enums\QueryType;
@@ -10,6 +11,8 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Exception;
+use GraphQL\Type\Definition\InputObjectType;
+use GraphQL\Type\Definition\NonNull;
 
 /**
  * Class ObjectType
@@ -104,5 +107,13 @@ class MappedObjectType
         }
 
         return $result;
+    }
+
+    /**
+     * @return MappedObjectField[]
+     */
+    public function getMappedFields(): array
+    {
+        return $this->fields;
     }
 }

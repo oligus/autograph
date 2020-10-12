@@ -1,9 +1,15 @@
 """Stimplify Query fields"""
 type Query {
-  albums: [album]
+  albums(first: Int, after: Int = 0, filter: albumFilter): [album]
 }
 
 """Music album"""
 type album {
   id: ID!
+  title: String!
+}
+
+input albumFilter {
+  id: ID
+  title: String
 }

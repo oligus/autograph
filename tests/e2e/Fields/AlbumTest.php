@@ -22,8 +22,9 @@ class AlbumTest extends TestCase
     {
         $query = <<< EOF
 {
-  albums {
+  albums(filter: { id: 1 }) {
     id
+    title
   }
 }
 EOF;

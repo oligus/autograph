@@ -20,6 +20,8 @@ final class ObjectField implements Annotation
 
     public ?string $description = null;
 
+    public bool $filterable = false;
+
     public ?string $deprecationReason = null;
 
     public ?Closure $resolveFn = null;

@@ -31,6 +31,11 @@ class TypeManager
         }
     }
 
+    public static function clear(): void
+    {
+        self::$types = [];
+    }
+
     public static function boolean(): Definition\ScalarType
     {
         return Definition\Type::boolean();
