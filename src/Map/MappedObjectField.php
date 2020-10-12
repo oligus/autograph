@@ -73,6 +73,11 @@ class MappedObjectField
         return $this->conversion->getType();
     }
 
+    public function isFilterable(): bool
+    {
+        return $this->objectField->filterable ?? false;
+    }
+
     /**
      * @return array<mixed>
      */

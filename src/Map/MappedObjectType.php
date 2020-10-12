@@ -2,6 +2,7 @@
 
 namespace Autograph\Map;
 
+use Autograph\GraphQL\TypeManager;
 use Autograph\Map\Annotations\ObjectField;
 use Autograph\Map\Annotations\ObjectType;
 use Autograph\Map\Enums\QueryType;
@@ -10,6 +11,8 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Exception;
+use GraphQL\Type\Definition\InputObjectType;
+use GraphQL\Type\Definition\NonNull;
 
 /**
  * Class ObjectType
@@ -104,5 +107,44 @@ class MappedObjectType
         }
 
         return $result;
+    }
+
+    public function getFilterType(): ?array
+    {
+        $filterFields = [];
+
+        /** @var MappedObjectField $field */
+        foreach ($this->fields as $field) {
+            if (!$field->isFilterable()) {
+                continue;
+            }
+
+            $type = $field->getType();
+
+            if ($type instanceof NonNull) {
+                $type = $type->getOfType();
+            }
+
+            $filterFields[$field->getName()] = [
+                'type' => $type
+            ];
+        }
+
+        if (empty($filterFields)) {
+            return null;
+        }
+
+        $filterName = $this->getName() . 'Filter';
+
+        $filterType = new InputObjectType([
+            'name' => $filterName,
+            'fields' => $filterFields
+        ]);
+
+        TypeManager::add($filterType);
+
+        return [
+            'type' => $filterType,
+        ];
     }
 }

@@ -78,4 +78,16 @@ class MappedObjectFieldTest extends TestCase
         $this->assertInstanceOf(NonNull::class, $field->getType());
         $this->assertInstanceOf(StringType::class, $field->getType()->getOfType());
     }
+
+    public function testIsFilterable()
+    {
+        $objectField = new ObjectField();
+        $property = new ReflectionProperty(Album::class, 'id');
+        $field = new MappedObjectField($objectField, $property, []);
+        $this->assertFalse($field->isFilterable());
+
+        $objectField->filterable = true;
+        $field = new MappedObjectField($objectField, $property, []);
+        $this->assertTrue($field->isFilterable());
+    }
 }

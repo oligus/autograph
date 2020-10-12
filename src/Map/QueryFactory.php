@@ -3,6 +3,7 @@
 namespace Autograph\Map;
 
 use Autograph\GraphQL\EntityResolver;
+use Autograph\GraphQL\Resolvers\EntityList;
 use Autograph\GraphQL\TypeManager;
 use Autograph\Map\Enums\QueryType;
 use GraphQL\Type\Definition\ObjectType;
@@ -29,11 +30,11 @@ class QueryFactory
                     ];
                     break;
                 case QueryType::LIST():
-                    $fields[$objectType->getQueryField()] = [
-                        'type' => TypeManager::listOf(TypeManager::get($objectType->getName())),
-                        'resolve' => $resolver->resolveList()
-                    ];
+                    $resolver = new EntityList($objectType);
+                    $listField = $resolver->getField();
+                    $fields = array_merge($fields, $listField);
                     break;
+
                 default:
             }
         }

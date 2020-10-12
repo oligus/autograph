@@ -18,12 +18,13 @@ class Album
      * @ORM\Column(name="AlbumId", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @AUG\ObjectField
+     * @AUG\ObjectField(filterable=true)
      */
     protected int $id;
 
     /**
      * @ORM\Column(name="Title", type="string", length=160, nullable=false)
+     * @AUG\ObjectField(filterable=true)
      */
     protected string $title;
 
