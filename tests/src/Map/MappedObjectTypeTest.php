@@ -82,20 +82,4 @@ class MappedObjectTypeTest extends TestCase
         $objectType->queryField = 'albums';
         $this->assertEquals('albums', $obj->getQueryField());
     }
-
-    /**
-     * @throws MappingException
-     * @throws ReflectionException
-     * @throws \Doctrine\Persistence\Mapping\MappingException
-     */
-    public function testGetFilterType()
-    {
-        $objectType = new ObjectType();
-        $meta = $this->getEntityManager()->getMetadataFactory()->getMetadataFor(Album::class);
-        $obj = new MappedObjectType($objectType, $meta);
-
-        $filter = $obj->getFilterType()['type'];
-
-        $this->assertEquals('AlbumFilter', $filter->name);
-    }
 }

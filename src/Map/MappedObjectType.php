@@ -109,42 +109,11 @@ class MappedObjectType
         return $result;
     }
 
-    public function getFilterType(): ?array
+    /**
+     * @return MappedObjectField[]
+     */
+    public function getMappedFields(): array
     {
-        $filterFields = [];
-
-        /** @var MappedObjectField $field */
-        foreach ($this->fields as $field) {
-            if (!$field->isFilterable()) {
-                continue;
-            }
-
-            $type = $field->getType();
-
-            if ($type instanceof NonNull) {
-                $type = $type->getOfType();
-            }
-
-            $filterFields[$field->getName()] = [
-                'type' => $type
-            ];
-        }
-
-        if (empty($filterFields)) {
-            return null;
-        }
-
-        $filterName = $this->getName() . 'Filter';
-
-        $filterType = new InputObjectType([
-            'name' => $filterName,
-            'fields' => $filterFields
-        ]);
-
-        TypeManager::add($filterType);
-
-        return [
-            'type' => $filterType,
-        ];
+        return $this->fields;
     }
 }

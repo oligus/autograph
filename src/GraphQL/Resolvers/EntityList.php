@@ -4,6 +4,7 @@ namespace Autograph\GraphQL\Resolvers;
 
 use Autograph\GraphQL\AppContext;
 use Autograph\GraphQL\TypeManager;
+use Autograph\GraphQL\Types\Filter;
 use Autograph\Helpers\ClassHelper;
 use Autograph\Map\MappedObjectType;
 use Closure;
@@ -24,6 +25,9 @@ class EntityList
         $this->objectType = $objectType;
     }
 
+    /**
+     * @return array<string,array{type:\GraphQL\Type\Definition\ListOfType,resolve:\Closure,args:array{first:array{type:\GraphQL\Type\Definition\ScalarType},after:array{type:\GraphQL\Type\Definition\ScalarType,defaultValue:0},filter?:array}}>
+     */
     public function getField(): array
     {
         $fieldName = $this->objectType->getQueryField();
@@ -43,7 +47,7 @@ class EntityList
             ]
         ];
 
-        $filter = $this->objectType->getFilterType();
+        $filter = Filter::create($this->objectType);
 
         if (!is_null($filter)) {
             $field['args']['filter'] = $filter;

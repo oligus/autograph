@@ -35,13 +35,13 @@ class MappedObjectField
         $this->conversion = new TypeConversion($this->fieldMapping);
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         if (isset($this->objectField->name)) {
-            return $this->objectField->name;
+            return (string) $this->objectField->name;
         }
 
-        return $this->reflectionProperty->name;
+        return $this->reflectionProperty->name ?? 'unknown';
     }
 
     public function getDescription(): ?string
