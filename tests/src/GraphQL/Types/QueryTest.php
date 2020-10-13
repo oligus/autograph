@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Autograph\Tests\Map;
+namespace Autograph\Tests\GraphQL\Types;
 
+use Autograph\GraphQL\Types\Query;
 use Autograph\Map\AnnotationMapper;
-use Autograph\Map\QueryFactory;
 use Doctrine\ORM\Mapping\MappingException;
 use GraphQL\Type\Definition\ObjectType;
 use Tests\TestCase;
 
 /**
- * Class QueryFactoryTest
- * @package Autograph\Tests\Map
+ * Class QueryTest
+ * @package Autograph\Tests\GraphQL\Types
  */
-class QueryFactoryTest extends TestCase
+class QueryTest extends TestCase
 {
 
     /**
@@ -24,7 +24,7 @@ class QueryFactoryTest extends TestCase
 
         $mapper = new AnnotationMapper($em);
 
-        $query = QueryFactory::create($mapper);
+        $query = Query::create($mapper);
 
         $this->assertInstanceOf(ObjectType::class, $query);
 

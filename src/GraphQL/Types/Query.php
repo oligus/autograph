@@ -1,18 +1,20 @@
 <?php declare(strict_types=1);
 
-namespace Autograph\Map;
+namespace Autograph\GraphQL\Types;
 
 use Autograph\GraphQL\EntityResolver;
 use Autograph\GraphQL\Resolvers\EntityList;
 use Autograph\GraphQL\TypeManager;
+use Autograph\Map\AnnotationMapper;
 use Autograph\Map\Enums\QueryType;
+use Autograph\Map\MappedObjectType;
 use GraphQL\Type\Definition\ObjectType;
 
 /**
- * Class QueryFactory
- * @package Autograph\Map
+ * Class Query
+ * @package Autograph\GraphQL\Types
  */
-class QueryFactory
+class Query
 {
     public static function create(AnnotationMapper $mapper): ObjectType
     {

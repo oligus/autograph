@@ -1,4 +1,8 @@
-# Annotations
+# Autograph
+
+[<< Back](../README.md)
+
+## Annotations
 
 [@ObjectType](Annotations.md#objecttype)<br />
 [@ObjectField](Annotations.md#objectfield)<br />
@@ -35,8 +39,12 @@ type album {
   ...
 }
 
+input albumFilter {
+  ...
+}
+
 type Query {
-  albums: [album]
+  albums(first: Int, after: Int = 0, filter: albumFilter): [album]
   ...
 }
 ```
@@ -47,6 +55,7 @@ Optional attributes:
 * **name** Name of the GraphQL field, if omitted will be set to property name
 * **description** GraphQL field description.
 * **type** GraphQL type, eg `String`, `Int!`
+* **filterable** Boolean, if object type is a list, you can filter on this property
 
 Examples:
 
@@ -56,7 +65,7 @@ use Autograph\Map\Annotations as AUG;
 
 /**
   * @ORM\Column(name="CategoryName", type="text", nullable=false)
-  * @AUG\ObjectField(name="name", type="String!", description="Name of category")
+  * @AUG\ObjectField(name="name", type="String!", description="Name of category", filterable=true)
   */
 protected string $name;
 ```

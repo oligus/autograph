@@ -3,7 +3,6 @@
 namespace Autograph\GraphQL\Types;
 
 use Autograph\GraphQL\TypeManager;
-use Autograph\Map\MappedObjectField;
 use Autograph\Map\MappedObjectType;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\NonNull;
@@ -21,7 +20,6 @@ class Filter
     {
         $filterFields = [];
 
-        /** @var MappedObjectField $field */
         foreach ($objectType->getMappedFields() as $field) {
             if (!$field->isFilterable()) {
                 continue;

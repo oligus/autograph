@@ -34,5 +34,24 @@ EOF;
 
         $this->assertMatchesJsonSnapshot($autograph->result());
     }
-}
 
+    /**
+     * @throws MappingException
+     */
+    public function testPagination()
+    {
+        $query = <<< EOF
+{
+  albums(first: 5, after: 10) {
+    id
+    title
+  }
+}
+EOF;
+
+        $variables = [];
+        $autograph = new Autograph($this->getEntityManager(), $query, $variables);
+
+        $this->assertMatchesJsonSnapshot($autograph->result());
+    }
+}
