@@ -76,11 +76,20 @@ class EntityList
             $qb->select('t')->from($className, 't');
 
             if (array_key_exists('filter', $args)) {
-                foreach ($args['filter'] as $key => $value) {
+                foreach ($args['filter'] as $key => $val) {
                     $qb->andWhere($qb->expr()->eq('t.' . $key, ':' . $key));
-                    $qb->setParameter($key, $value);
+                    $qb->setParameter($key, $val);
                 }
             }
+
+            if (array_key_exists('first', $args)) {
+                $qb->setMaxResults($args['first']);
+            }
+
+            if (array_key_exists('after', $args)) {
+                $qb->setFirstResult($args['after']);
+            }
+
 
             $entities = $qb->getQuery()->getResult();
 

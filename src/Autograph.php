@@ -3,8 +3,8 @@
 namespace Autograph;
 
 use Autograph\GraphQL\AppContext;
+use Autograph\GraphQL\Types\Query;
 use Autograph\Map\AnnotationMapper;
-use Autograph\Map\QueryFactory;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\MappingException;
 use GraphQL\Error\DebugFlag;
@@ -44,7 +44,7 @@ class Autograph
         $mapper = new AnnotationMapper($this->em);
 
         // Create Query object
-        $query = QueryFactory::create($mapper);
+        $query = Query::create($mapper);
 
         $appContext = new AppContext();
         $appContext->setEm($this->em);

@@ -2,8 +2,8 @@
 
 namespace Autograph\Tests\E2E;
 
+use Autograph\GraphQL\Types\Query;
 use Autograph\Map\AnnotationMapper;
-use Autograph\Map\QueryFactory;
 use Doctrine\ORM\Mapping\MappingException;
 use GraphQL\Type\Schema;
 use GraphQL\Utils\SchemaPrinter;
@@ -22,7 +22,7 @@ class SchemaTest extends TestCase
         $em = $this->getEntityManager();
         $em->clear();
         $mapper = new AnnotationMapper($this->getEntityManager());
-        $query = QueryFactory::create($mapper);
+        $query = Query::create($mapper);
         $schema = new Schema([
             'query' => $query
         ]);

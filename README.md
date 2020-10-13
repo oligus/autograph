@@ -7,6 +7,22 @@
 
 ## Quickstart
 
+```php
+$query = <<< EOF
+{
+  albums(filter: { id: 1 }) {
+    id
+    title
+  }
+}
+EOF;
+
+$variables = [];
+$autograph = new Autograph($em, $query, $variables);
+$autograph->result();
+```
+       
 ## TOC
 
 [Annotations](docs/Annotations.md)
+
