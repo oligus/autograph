@@ -23,8 +23,11 @@ class AlbumTest extends TestCase
         $query = <<< EOF
 {
   albums(filter: { id: 1 }) {
-    id
-    title
+    totalCount
+    nodes {
+      id
+      title
+    }
   }
 }
 EOF;
@@ -43,8 +46,11 @@ EOF;
         $query = <<< EOF
 {
   albums(first: 5, after: 10) {
-    id
-    title
+    totalCount
+    nodes {
+      id
+      title
+    }
   }
 }
 EOF;

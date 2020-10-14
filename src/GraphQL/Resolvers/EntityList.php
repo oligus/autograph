@@ -5,9 +5,12 @@ namespace Autograph\GraphQL\Resolvers;
 use Autograph\GraphQL\AppContext;
 use Autograph\GraphQL\TypeManager;
 use Autograph\GraphQL\Types\Filter;
+use Autograph\GraphQL\Types\ListType;
 use Autograph\Helpers\ClassHelper;
 use Autograph\Map\MappedObjectType;
 use Closure;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Exception;
 use GraphQL\Type\Definition\ResolveInfo;
 
@@ -26,15 +29,17 @@ class EntityList
     }
 
     /**
-     * @return array<string,array{type:\GraphQL\Type\Definition\ListOfType,resolve:\Closure,args:array{first:array{type:\GraphQL\Type\Definition\ScalarType},after:array{type:\GraphQL\Type\Definition\ScalarType,defaultValue:0},filter?:array}}>
+     * @return array<string,array{type:\GraphQL\Type\Definition\ObjectType,resolve:\Closure,args:array{first:array{type:\GraphQL\Type\Definition\ScalarType},after:array{type:\GraphQL\Type\Definition\ScalarType,defaultValue:0},filter?:\GraphQL\Type\Definition\InputObjectType[]}}>
      */
     public function getField(): array
     {
-        $fieldName = $this->objectType->getQueryField();
         $type = TypeManager::get($this->objectType->getName());
+        $fieldName = $this->objectType->getQueryField();
+
+        $returnType = ListType::create($fieldName, $type);
 
         $field = [
-            'type' => TypeManager::listOf($type),
+            'type' => $returnType,
             'resolve' => $this->resolver(),
             'args' => [
                 'first' => [
@@ -70,8 +75,9 @@ class EntityList
          */
         return function ($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo): array {
             $className = $this->objectType->getClassName();
+            $em = $appContext->getEm();
 
-            $qb = $appContext->getEm()->createQueryBuilder();
+            $qb = $em->createQueryBuilder();
 
             $qb->select('t')->from($className, 't');
 
@@ -93,17 +99,31 @@ class EntityList
 
             $entities = $qb->getQuery()->getResult();
 
-            $result = [];
+            $nodes = [];
 
             foreach ($entities as $entity) {
                 $fields = [];
                 foreach ($this->objectType->getFields() as $field) {
                     $fields[$field['name']] =  ClassHelper::getPropertyValue($entity, $field['name']);
                 }
-                $result[] = $fields;
+                $nodes[] = $fields;
             }
 
-            return $result;
+            return [
+                /**
+                 * @throws NoResultException
+                 * @throws NonUniqueResultException
+                 */
+                'totalCount' => function () use ($className, $em): int {
+                    $qb = $em->createQueryBuilder();
+                    $qb->select('COUNT(t)')->from($className, 't');
+                    return (int) $qb->getQuery()->getSingleScalarResult();
+                },
+                /** @return array<mixed> */
+                'nodes' => function () use ($nodes): array {
+                    return $nodes;
+                }
+            ];
         };
     }
 }

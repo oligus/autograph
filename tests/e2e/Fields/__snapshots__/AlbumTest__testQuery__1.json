@@ -1,10 +1,13 @@
 {
     "data": {
-        "albums": [
-            {
-                "id": "1",
-                "title": "For Those About To Rock We Salute You"
-            }
-        ]
+        "albums": {
+            "totalCount": 347,
+            "nodes": [
+                {
+                    "id": "1",
+                    "title": "For Those About To Rock We Salute You"
+                }
+            ]
+        }
     }
 }
