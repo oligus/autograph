@@ -1,4 +1,5 @@
 type Albums {
+  totalCount: Int
   nodes: [album]
 }
 
