@@ -1,6 +1,11 @@
+type Albums {
+  totalCount: Int
+  nodes: [album]
+}
+
 """Stimplify Query fields"""
 type Query {
-  albums(first: Int, after: Int = 0, filter: albumFilter): [album]
+  albums(first: Int, after: Int = 0, filter: albumFilter): Albums
 }
 
 """Music album"""

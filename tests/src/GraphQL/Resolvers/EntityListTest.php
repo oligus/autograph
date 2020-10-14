@@ -8,8 +8,10 @@ use Autograph\Map\Annotations\ObjectType;
 use Autograph\Map\MappedObjectType;
 use Autograph\Map\ObjectFactory;
 use Autograph\Tests\Application\Entities\Album;
+use Doctrine\ORM\Mapping\MappingException;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\ObjectType as ObjType;
+use ReflectionException;
 use Tests\TestCase;
 
 /**
@@ -18,6 +20,11 @@ use Tests\TestCase;
  */
 class EntityListTest extends TestCase
 {
+    /**
+     * @throws MappingException
+     * @throws \Doctrine\Persistence\Mapping\MappingException
+     * @throws ReflectionException
+     */
     public function testGetFields()
     {
         $objectType = new ObjectType();
@@ -32,9 +39,7 @@ class EntityListTest extends TestCase
         $resolver = new EntityList($obj);
 
         $field = $resolver->getField();
-
-        $this->assertInstanceOf(ListOfType::class, ($field['album']['type']));
-        $this->assertInstanceOf(ObjType::class, ($field['album']['type']->getOfType()));
+        $this->assertInstanceOf(ObjType::class, ($field['album']['type']));
 
         TypeManager::clear();
     }
