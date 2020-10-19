@@ -4,7 +4,6 @@ namespace Autograph\GraphQL\Resolvers;
 
 use Autograph\GraphQL\AppContext;
 use Autograph\GraphQL\TypeManager;
-use Autograph\GraphQL\Types\Filter;
 use Autograph\GraphQL\Types\ListType;
 use Autograph\Helpers\ClassHelper;
 use Autograph\Map\MappedObjectType;
@@ -34,7 +33,7 @@ class EntityList
     public function getField(): array
     {
         $type = TypeManager::get($this->objectType->getName());
-        $fieldName = $this->objectType->getQueryField();
+        $fieldName = $this->objectType->getQueryFieldName();
 
         $returnType = ListType::create($fieldName, $type);
 
@@ -52,7 +51,7 @@ class EntityList
             ]
         ];
 
-        $filter = Filter::create($this->objectType);
+        $filter = $this->objectType->createFilter();
 
         if (!is_null($filter)) {
             $field['args']['filter'] = $filter;

@@ -2,14 +2,16 @@
 
 namespace Autograph\Map;
 
+use Autograph\GraphQL\Types\Filter;
 use Autograph\Map\Annotations\ObjectField;
 use Autograph\Map\Annotations\ObjectType;
-use Autograph\Map\Enums\QueryType;
+use Autograph\Map\Enums\QueryMethod;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Exception;
+use GraphQL\Type\Definition\InputObjectType;
 
 /**
  * Class ObjectType
@@ -68,13 +70,13 @@ class MappedObjectType
         return $this->meta->getReflectionClass()->name;
     }
 
-    public function getQueryType(): QueryType
+    public function getQueryMethod(): QueryMethod
     {
-        $value = strtoupper($this->objectType->queryType ?? QueryType::NONE);
-        $type = QueryType::NONE();
+        $value = strtoupper($this->objectType->query['method'] ?? QueryMethod::NONE);
+        $type = QueryMethod::NONE();
 
         try {
-            $type = QueryType::$value();
+            $type = QueryMethod::$value();
             // @phan-suppress-next-line PhanUnusedVariableCaughtException
         } catch (Exception $e) {
         }
@@ -82,10 +84,10 @@ class MappedObjectType
         return $type;
     }
 
-    public function getQueryField(): string
+    public function getQueryFieldName(): string
     {
-        if (isset($this->objectType->queryField) && is_string($this->objectType->queryField)) {
-            return (string) $this->objectType->queryField;
+        if (isset($this->objectType->query['fieldName']) && is_string($this->objectType->query['fieldName'])) {
+            return (string) $this->objectType->query['fieldName'];
         }
 
         return $this->getName();
@@ -112,5 +114,16 @@ class MappedObjectType
     public function getMappedFields(): array
     {
         return $this->fields;
+    }
+
+    /**
+     * @return InputObjectType[]|null
+     */
+    public function createFilter(): ?array
+    {
+        $filteredFields = $this->objectType->query['filter'] ?? [];
+        $fields = $this->getMappedFields();
+
+        return Filter::create($this->getName(), $fields, $filteredFields);
     }
 }

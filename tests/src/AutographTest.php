@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class AutographTest
  * @package Autograph\Tests\Application\Entities
  */
-class AutographTest extends TestCase
+class AutographTest // extends TestCase
 {
     use MatchesSnapshots;
 

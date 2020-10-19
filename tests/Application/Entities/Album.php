@@ -10,7 +10,11 @@ use Autograph\Map\Annotations as AUG;
  *
  * @ORM\Table(name="albums")
  * @ORM\Entity
- * @AUG\ObjectType(name="album", description="Music album", queryField="albums", queryType="list")
+ * @AUG\ObjectType(name="album", description="Music album", query={
+ *     "fieldName"="albums",
+ *     "method"="LIST",
+ *     "filter"={"id", "title"}
+ * })
  */
 class Album
 {
@@ -18,13 +22,13 @@ class Album
      * @ORM\Column(name="AlbumId", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @AUG\ObjectField(filterable=true)
+     * @AUG\ObjectField
      */
     protected int $id;
 
     /**
      * @ORM\Column(name="Title", type="string", length=160, nullable=false)
-     * @AUG\ObjectField(filterable=true)
+     * @AUG\ObjectField
      */
     protected string $title;
 

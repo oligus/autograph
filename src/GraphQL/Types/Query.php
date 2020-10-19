@@ -6,7 +6,7 @@ use Autograph\GraphQL\EntityResolver;
 use Autograph\GraphQL\Resolvers\EntityList;
 use Autograph\GraphQL\TypeManager;
 use Autograph\Map\AnnotationMapper;
-use Autograph\Map\Enums\QueryType;
+use Autograph\Map\Enums\QueryMethod;
 use Autograph\Map\MappedObjectType;
 use GraphQL\Type\Definition\ObjectType;
 
@@ -23,15 +23,16 @@ class Query
         /** @var MappedObjectType $objectType */
         foreach ($mapper->getObjectMap() as $objectType) {
             $resolver = new EntityResolver($objectType);
-            switch ($objectType->getQueryType()) {
-                case QueryType::SINGLE():
-                    $fields[$objectType->getQueryField()] = [
+
+            switch ($objectType->getQueryMethod()) {
+                case QueryMethod::SINGLE():
+                    $fields[$objectType->getQueryFieldName()] = [
                         'type' => TypeManager::get($objectType->getName()),
                         'args' => ['id' => TypeManager::nonNull(TypeManager::id())],
                         'resolve' => $resolver->resolve()
                     ];
                     break;
-                case QueryType::LIST():
+                case QueryMethod::LIST():
                     $resolver = new EntityList($objectType);
                     $listField = $resolver->getField();
                     $fields = array_merge($fields, $listField);
