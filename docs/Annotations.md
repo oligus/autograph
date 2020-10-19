@@ -12,11 +12,12 @@
 Optional attributes:
 * **name** Name of the GraphQL object type, if omitted will be set to current class name
 * **description** GraphQL object type description.
-* **queryField** GraphQL root query name
-* **queryType** GraphQL root query type, one of the following
-  * **none**    No root query    
-  * **single**  Single record query
-  * **list**    List of objects
+* **query** GraphQL root query field
+  * **fieldName**
+  * **method** Field return method, one of the following   
+    * **single**  Return a single object by ID
+    * **list**    Return a List of objects, filterable
+  * **filter** List of filterable fields
 
 Example:
 
@@ -26,7 +27,11 @@ use Autograph\Map\Annotations as AUG;
 /**
  * @ORM\Entity
  * @ORM\Table(name="albums")
- * @AUG\ObjectType(name="album", description="Music album", queryField="albums", queryType="list")
+ * @AUG\ObjectType(name="album", description="Music album", query={
+ *     "fieldName"="albums",
+ *     "method"="LIST",
+ *     "filter"={"id", "title"}
+ * })
  */
 class Album
 ...
@@ -34,6 +39,28 @@ class Album
 
 Rendered GraphQL:
 ```graphql
+type Albums {
+  totalCount: Int
+  nodes: [album]
+}
+
+"""Stimplify Query fields"""
+type Query {
+  albums(first: Int, after: Int = 0, filter: albumFilter): Albums
+}
+
+type album {
+  id: ID!
+  title: String!
+}
+
+input albumFilter {
+  id: ID
+  title: String
+}
+
+
+
 """Music album"""
 type album {
   ...

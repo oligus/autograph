@@ -2,6 +2,7 @@
 
 namespace Autograph\Tests\E2E;
 
+use Autograph\GraphQL\TypeManager;
 use Autograph\GraphQL\Types\Query;
 use Autograph\Map\AnnotationMapper;
 use Doctrine\ORM\Mapping\MappingException;
@@ -16,11 +17,13 @@ class SchemaTest extends TestCase
 
     /**
      * @throws MappingException
+     * @throws \Doctrine\Persistence\Mapping\MappingException
      */
     public function testSchema()
     {
         $em = $this->getEntityManager();
         $em->clear();
+        TypeManager::clear();
         $mapper = new AnnotationMapper($this->getEntityManager());
         $query = Query::create($mapper);
         $schema = new Schema([

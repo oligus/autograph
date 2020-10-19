@@ -3,7 +3,7 @@
 namespace Autograph\Tests\Map;
 
 use Autograph\Map\Annotations\ObjectType;
-use Autograph\Map\Enums\QueryType;
+use Autograph\Map\Enums\QueryMethod;
 use Autograph\Map\MappedObjectType;
 use Autograph\Tests\Application\Entities\Album;
 use Doctrine\ORM\Mapping\MappingException;
@@ -53,18 +53,18 @@ class MappedObjectTypeTest extends TestCase
      * @throws ReflectionException
      * @throws \Doctrine\Persistence\Mapping\MappingException
      */
-    public function testGetQueryType()
+    public function testGetQueryMethod()
     {
         $objectType = new ObjectType();
         $meta = $this->getEntityManager()->getMetadataFactory()->getMetadataFor(Album::class);
         $obj = new MappedObjectType($objectType, $meta);
-        $this->assertEquals(QueryType::NONE(), $obj->getQueryType());
+        $this->assertEquals(QueryMethod::NONE(), $obj->getQueryMethod());
 
-        $objectType->queryType = 'list';
-        $this->assertEquals(QueryType::LIST(), $obj->getQueryType());
+        $objectType->query = ['method' => 'list'];
+        $this->assertEquals(QueryMethod::LIST(), $obj->getQueryMethod());
 
-        $objectType->queryType = 'single';
-        $this->assertEquals(QueryType::SINGLE(), $obj->getQueryType());
+        $objectType->query = ['method' => 'single'];
+        $this->assertEquals(QueryMethod::SINGLE(), $obj->getQueryMethod());
     }
 
     /**
@@ -77,9 +77,9 @@ class MappedObjectTypeTest extends TestCase
         $objectType = new ObjectType();
         $meta = $this->getEntityManager()->getMetadataFactory()->getMetadataFor(Album::class);
         $obj = new MappedObjectType($objectType, $meta);
-        $this->assertEquals('Album', $obj->getQueryField());
+        $this->assertEquals('Album', $obj->getQueryFieldName());
 
-        $objectType->queryField = 'albums';
-        $this->assertEquals('albums', $obj->getQueryField());
+        $objectType->query = ['fieldName' => 'albums'];
+        $this->assertEquals('albums', $obj->getQueryFieldName());
     }
 }

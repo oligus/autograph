@@ -5,14 +5,14 @@ namespace Autograph\Map\Enums;
 use MyCLabs\Enum\Enum;
 
 /**
- * Class FieldType
+ * Class QueryMethod
  * @package Autograph\Map\Enums
  *
- * @method static QueryType SINGLE()
- * @method static QueryType LIST()
- * @method static QueryType NONE()
+ * @method static QueryMethod SINGLE()
+ * @method static QueryMethod LIST()
+ * @method static QueryMethod NONE()
  */
-class QueryType extends Enum
+class QueryMethod extends Enum
 {
     public const SINGLE = 'SINGLE';
     public const LIST = 'LIST';

@@ -3,7 +3,7 @@
 namespace Autograph\GraphQL\Types;
 
 use Autograph\GraphQL\TypeManager;
-use Autograph\Map\MappedObjectType;
+use Autograph\Map\MappedObjectField;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\NonNull;
 
@@ -14,14 +14,18 @@ use GraphQL\Type\Definition\NonNull;
 class Filter
 {
     /**
+     * @param string $name
+     * @param array<MappedObjectField> $fields
+     * @param array<string> $filteredFields
      * @return InputObjectType[]|null
      */
-    public static function create(MappedObjectType $objectType): ?array
+    public static function create(string $name, array $fields, array $filteredFields): ?array
     {
         $filterFields = [];
 
-        foreach ($objectType->getMappedFields() as $field) {
-            if (!$field->isFilterable()) {
+        /** @var MappedObjectField $field */
+        foreach ($fields as $field) {
+            if (!in_array($field->getName(), $filteredFields)) {
                 continue;
             }
 
@@ -40,7 +44,7 @@ class Filter
             return null;
         }
 
-        $filterName = $objectType->getName() . 'Filter';
+        $filterName = $name . 'Filter';
 
         $filterType = new InputObjectType([
             'name' => $filterName,

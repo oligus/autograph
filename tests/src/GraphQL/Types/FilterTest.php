@@ -28,7 +28,7 @@ class FilterTest extends TestCase
         $meta = $this->getEntityManager()->getMetadataFactory()->getMetadataFor(Album::class);
         $obj = new MappedObjectType($objectType, $meta);
 
-        $filter = Filter::create($obj)['type'];
+        $filter = Filter::create('Album', $obj->getMappedFields(), ['id', 'title'])['type'];
 
         $this->assertEquals('AlbumFilter', $filter->name);
     }

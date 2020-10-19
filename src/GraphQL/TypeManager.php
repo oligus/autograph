@@ -7,6 +7,7 @@ use GraphQL\Type\Definition;
 /**
  * Class TypeManager
  * @package Autograph\GraphQL
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
 class TypeManager
 {
@@ -29,6 +30,19 @@ class TypeManager
         if (!array_key_exists($type->name, self::$types)) {
             self::$types[$type->name] = $type;
         }
+    }
+
+    public static function exists(string $typeName): bool
+    {
+        if (array_key_exists($typeName, self::$types)) {
+            return true;
+        }
+
+        if (method_exists(self::class, $typeName)) {
+            return true;
+        }
+
+        return false;
     }
 
     public static function clear(): void
