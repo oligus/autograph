@@ -6,6 +6,19 @@ type Albums {
 """Stimplify Query fields"""
 type Query {
   albums(first: Int, after: Int = 0, filter: albumFilter): Albums
+  tracks(id: ID!): Track
+}
+
+type Track {
+  id: ID!
+  name: String!
+  albumId: Int!
+  mediaTypeId: Int!
+  genreId: Int!
+  composer: String!
+  milliseconds: Int!
+  bytes: Int!
+  unitPrice: String!
 }
 
 """Music album"""

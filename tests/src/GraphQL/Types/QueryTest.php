@@ -29,7 +29,8 @@ class QueryTest extends TestCase
         $this->assertInstanceOf(ObjectType::class, $query);
 
         $expected = [
-            'albums'
+            'albums',
+            'tracks'
         ];
         $this->assertEquals($expected, array_keys($query->getFields()));
     }

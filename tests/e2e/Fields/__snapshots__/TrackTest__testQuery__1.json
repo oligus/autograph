@@ -1,0 +1,15 @@
+{
+    "data": {
+        "tracks": {
+            "id": "1",
+            "name": "For Those About To Rock (We Salute You)",
+            "albumId": 1,
+            "mediaTypeId": 1,
+            "genreId": 1,
+            "composer": "Angus Young, Malcolm Young, Brian Johnson",
+            "milliseconds": 343719,
+            "bytes": 11170334,
+            "unitPrice": "0.99"
+        }
+    }
+}

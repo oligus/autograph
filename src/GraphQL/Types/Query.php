@@ -2,9 +2,8 @@
 
 namespace Autograph\GraphQL\Types;
 
-use Autograph\GraphQL\EntityResolver;
 use Autograph\GraphQL\Resolvers\EntityList;
-use Autograph\GraphQL\TypeManager;
+use Autograph\GraphQL\Resolvers\Single;
 use Autograph\Map\AnnotationMapper;
 use Autograph\Map\Enums\QueryMethod;
 use Autograph\Map\MappedObjectType;
@@ -22,15 +21,11 @@ class Query
 
         /** @var MappedObjectType $objectType */
         foreach ($mapper->getObjectMap() as $objectType) {
-            $resolver = new EntityResolver($objectType);
-
             switch ($objectType->getQueryMethod()) {
                 case QueryMethod::SINGLE():
-                    $fields[$objectType->getQueryFieldName()] = [
-                        'type' => TypeManager::get($objectType->getName()),
-                        'args' => ['id' => TypeManager::nonNull(TypeManager::id())],
-                        'resolve' => $resolver->resolve()
-                    ];
+                    $resolver = new Single($objectType);
+                    $singleField = $resolver->getField();
+                    $fields = array_merge($fields, $singleField);
                     break;
                 case QueryMethod::LIST():
                     $resolver = new EntityList($objectType);
