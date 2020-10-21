@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Autograph\Map\Annotations as AUG;
 
 /**
- * Album
- *
  * @ORM\Table(name="albums")
  * @ORM\Entity
  * @AUG\ObjectType(name="album", description="Music album", query={
