@@ -18,14 +18,16 @@ class InvoiceItem
     protected int $id;
 
     /**
-     * @ORM\Column(name="InvoiceId", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Invoice", inversedBy="invoiceItems")
+     * @ORM\JoinColumn(name="InvoiceId", referencedColumnName="InvoiceId")
      */
-    protected int $invoiceId;
+    protected Invoice $invoice;
 
     /**
-     * @ORM\Column(name="TrackId", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Track")
+     * @ORM\JoinColumn(name="TrackId", referencedColumnName="TrackId")
      */
-    protected int $trackId;
+    protected Track $track;
 
     /**
      * @ORM\Column(name="UnitPrice", type="decimal", precision=10, scale=2, nullable=false)

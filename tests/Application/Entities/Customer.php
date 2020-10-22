@@ -73,7 +73,8 @@ class Customer
     protected string $email;
 
     /**
-     * @ORM\Column(name="SupportRepId", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Employee")
+     * @ORM\JoinColumn(name="SupportRepId", referencedColumnName="EmployeeId")
      */
-    protected ?string $supportrepid;
+    protected Employee $supportRep;
 }

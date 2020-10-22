@@ -2,6 +2,7 @@
 
 namespace Autograph\Tests\Application\Entities;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Autograph\Map\Annotations as AUG;
 
@@ -32,22 +33,32 @@ class Track
     protected string $name;
 
     /**
-     * @ORM\Column(name="AlbumId", type="integer")
-     * @AUG\ObjectField
+     * @ORM\ManyToOne(targetEntity="Album")
+     * @ORM\JoinColumn(name="AlbumId", referencedColumnName="AlbumId")
      */
-    protected string $albumId;
+    protected Album $album;
 
     /**
-     * @ORM\Column(name="MediaTypeId", type="integer")
-     * @AUG\ObjectField
+     * @ORM\ManyToOne(targetEntity="MediaType")
+     * @ORM\JoinColumn(name="MediaTypeId", referencedColumnName="MediaTypeId")
      */
-    protected string $mediaTypeId;
+    protected MediaType $mediaType;
 
     /**
-     * @ORM\Column(name="GenreId", type="integer")
-     * @AUG\ObjectField
+     * @ORM\ManyToOne(targetEntity="Genre")
+     * @ORM\JoinColumn(name="GenreId", referencedColumnName="GenreId")
      */
-    protected string $genreId;
+    protected Genre $genre;
+
+    /**
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="Playlist")
+     * @ORM\JoinTable(name="playlist_track",
+     *      joinColumns={@ORM\JoinColumn(name="TrackId", referencedColumnName="TrackId")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="PlaylistId", referencedColumnName="PlaylistId")}
+     * )
+     */
+    protected Collection $playlists;
 
     /**
      * @ORM\Column(name="Composer", type="string", length=220)
@@ -72,4 +83,6 @@ class Track
      * @AUG\ObjectField
      */
     protected string $unitPrice;
+
+
 }

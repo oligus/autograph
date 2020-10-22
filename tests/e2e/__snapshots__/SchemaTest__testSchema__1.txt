@@ -12,9 +12,6 @@ type Query {
 type Track {
   id: ID!
   name: String!
-  albumId: Int!
-  mediaTypeId: Int!
-  genreId: Int!
   composer: String!
   milliseconds: Int!
   bytes: Int!

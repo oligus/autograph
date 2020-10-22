@@ -3,6 +3,7 @@
 namespace Autograph\Tests\Application\Entities;
 
 use DateTime;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,14 +20,20 @@ class Invoice
     protected int $id;
 
     /**
-     * @ORM\Column(name="CustomerId", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Customer")
+     * @ORM\JoinColumn(name="CustomerId", referencedColumnName="CustomerId")
      */
-    protected int $customerId;
+    protected Customer $customer;
 
     /**
      * @ORM\Column(name="InvoiceDate", type="datetime", nullable=false)
      */
     protected DateTime $invoiceDate;
+
+    /**
+     * @ORM\OneToMany(targetEntity="InvoiceItem", mappedBy="invoice")
+     */
+    protected Collection $invoiceItems;
 
     /**
      * @ORM\Column(name="BillingAddress", type="string", length=70, nullable=true)

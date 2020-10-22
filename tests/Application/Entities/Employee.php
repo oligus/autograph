@@ -34,9 +34,10 @@ class Employee
     protected ?string $title;
 
     /**
-     * @ORM\Column(name="ReportsTo", type="integer", nullable=true)
+     * @ORM\OneToOne(targetEntity="Employee")
+     * @ORM\JoinColumn(name="ReportsTo", referencedColumnName="EmployeeId")
      */
-    protected ?int $reportsTo;
+    protected ?Employee $reportsTo;
 
     /**
      * @ORM\Column(name="BirthDate", type="datetime", nullable=true)

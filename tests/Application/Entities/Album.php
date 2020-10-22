@@ -2,8 +2,8 @@
 
 namespace Autograph\Tests\Application\Entities;
 
-use Doctrine\ORM\Mapping as ORM;
 use Autograph\Map\Annotations as AUG;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="albums")
@@ -31,7 +31,8 @@ class Album
     protected string $title;
 
     /**
-     * @ORM\Column(name="ArtistId", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Artist", inversedBy="albums")
+     * @ORM\JoinColumn(name="AlbumId", referencedColumnName="ArtistId")
      */
-    protected string $artistId;
+    protected Artist $artist;
 }

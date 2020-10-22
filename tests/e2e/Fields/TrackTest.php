@@ -25,9 +25,6 @@ class TrackTest extends TestCase
   tracks(id: 1) {
     id
     name
-    albumId
-    mediaTypeId
-    genreId
     composer
     milliseconds
     bytes

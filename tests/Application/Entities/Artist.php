@@ -2,6 +2,7 @@
 
 namespace Autograph\Tests\Application\Entities;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,4 +22,9 @@ class Artist
      * @ORM\Column(name="Name", type="string", length=120, nullable=true)
      */
     protected string $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Album", mappedBy="artist")
+     */
+    protected Collection $albums;
 }
