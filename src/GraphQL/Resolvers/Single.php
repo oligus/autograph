@@ -6,6 +6,7 @@ use Autograph\GraphQL\AppContext;
 use Autograph\GraphQL\TypeManager;
 use Autograph\Helpers\ClassHelper;
 use Autograph\Map\MappedObjectType;
+use Autograph\Tests\Application\Entities\Album;
 use Closure;
 use Exception;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -71,7 +72,7 @@ class Single
             $fields = [];
 
             foreach ($this->objectType->getFields() as $field) {
-                $fields[$field['name']] =  ClassHelper::getPropertyValue($entity, $field['name']);
+                $fields[$field['name']] = ClassHelper::getPropertyValue($entity, $field['name']);
             }
 
             return $fields;

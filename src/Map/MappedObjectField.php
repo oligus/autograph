@@ -18,27 +18,48 @@ class MappedObjectField
     private ReflectionProperty $reflectionProperty;
 
     /**
-     * @var array<string>
+     * @var array|null
      */
-    private array $fieldMapping;
-
-    private TypeConversion $conversion;
+    private ?array $fieldMapping = null;
 
     /**
-     * @param array<string> $fieldMapping
+     * @var array|null
      */
-    public function __construct(ObjectField $objectField, ReflectionProperty $reflectionProperty, array $fieldMapping)
+    private ?array $associationMapping = null;
+
+    public function __construct(ObjectField $objectField, ReflectionProperty $reflectionProperty)
     {
         $this->objectField = $objectField;
         $this->reflectionProperty = $reflectionProperty;
+    }
+
+    public function setFieldMapping(array $fieldMapping): void
+    {
         $this->fieldMapping = $fieldMapping;
-        $this->conversion = new TypeConversion($this->fieldMapping);
+    }
+
+    public function setAssociationMapping(array $associationMapping): void
+    {
+        $this->associationMapping = $associationMapping;
+    }
+
+    public function isAssociation(): bool
+    {
+        return !empty($this->associationMapping);
     }
 
     public function getName(): string
     {
         if (isset($this->objectField->name)) {
             return (string) $this->objectField->name;
+        }
+
+        if (is_array($this->fieldMapping) && array_key_exists('fieldName', $this->fieldMapping)) {
+            return  $this->fieldMapping['fieldName'];
+        }
+
+        if (is_array($this->associationMapping) && array_key_exists('fieldName', $this->associationMapping)) {
+            return  $this->associationMapping['fieldName'];
         }
 
         return $this->reflectionProperty->name ?? 'unknown';
@@ -66,16 +87,16 @@ class MappedObjectField
             return TypeManager::get($inType);
         }
 
-        if (!$this->conversion->isNullable()) {
-            return TypeManager::nonNull($this->conversion->getType());
+        if (!$this->isAssociation()) {
+            $conversion = new TypeConversion($this->fieldMapping);
+            if (!$conversion->isNullable()) {
+                return TypeManager::nonNull($conversion->getType());
+            }
+
+            return $conversion->getType();
         }
 
-        return $this->conversion->getType();
-    }
-
-    public function isFilterable(): bool
-    {
-        return $this->objectField->filterable ?? false;
+        return TypeManager::get($this->associationMapping['fieldName']);
     }
 
     /**

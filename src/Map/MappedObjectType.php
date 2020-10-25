@@ -42,7 +42,15 @@ class MappedObjectType
             $property = $reader->getPropertyAnnotation($reflectionProperty, ObjectField::class);
 
             if ($property instanceof ObjectField) {
-                $this->fields[] = new MappedObjectField($property, $reflectionProperty, $meta->getFieldMapping($reflectionProperty->name));
+                $objectField = new MappedObjectField($property, $reflectionProperty);
+
+                if ($meta->hasField($reflectionProperty->name)) {
+                    $objectField->setFieldMapping($meta->getFieldMapping($reflectionProperty->name));
+                } elseif ($meta->hasAssociation($reflectionProperty->name)) {
+                    $objectField->setAssociationMapping($meta->getAssociationMapping($reflectionProperty->name));
+                }
+
+                $this->fields[] = $objectField;
             }
         }
     }
@@ -73,15 +81,15 @@ class MappedObjectType
     public function getQueryMethod(): QueryMethod
     {
         $value = strtoupper($this->objectType->query['method'] ?? QueryMethod::NONE);
-        $type = QueryMethod::NONE();
+        $method = QueryMethod::NONE();
 
         try {
-            $type = QueryMethod::$value();
+            $method = QueryMethod::$value();
             // @phan-suppress-next-line PhanUnusedVariableCaughtException
         } catch (Exception $e) {
         }
 
-        return $type;
+        return $method;
     }
 
     public function getQueryFieldName(): string

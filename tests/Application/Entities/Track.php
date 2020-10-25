@@ -35,6 +35,7 @@ class Track
     /**
      * @ORM\ManyToOne(targetEntity="Album")
      * @ORM\JoinColumn(name="AlbumId", referencedColumnName="AlbumId")
+     * @AUG\ObjectField
      */
     protected Album $album;
 

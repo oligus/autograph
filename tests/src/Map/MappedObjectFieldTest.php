@@ -21,11 +21,12 @@ class MappedObjectFieldTest extends TestCase
         $objectField->type = 'String';
         $objectField->description = 'A description of name';
 
+        /** @var ReflectionProperty $reflectionProperty */
         $reflectionProperty = $this->getMockBuilder(ReflectionProperty::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $field = new MappedObjectField($objectField, $reflectionProperty, []);
+        $field = new MappedObjectField($objectField, $reflectionProperty);
 
         $result = $field->getField();
 
@@ -38,11 +39,15 @@ class MappedObjectFieldTest extends TestCase
     {
         $objectField = new ObjectField();
         $property = new ReflectionProperty(Album::class, 'id');
-        $field = new MappedObjectField($objectField, $property, []);
+        $field = new MappedObjectField($objectField, $property);
         $this->assertEquals('id', $field->getName());
 
+        $field = new MappedObjectField($objectField, $property);
+        $field->setFieldMapping(['fieldName' => 'testField']);
+        $this->assertEquals('testField', $field->getName());
+
         $objectField->name = 'identity';
-        $field = new MappedObjectField($objectField, $property, []);
+        $field = new MappedObjectField($objectField, $property);
         $this->assertEquals('identity', $field->getName());
     }
 
@@ -50,11 +55,11 @@ class MappedObjectFieldTest extends TestCase
     {
         $objectField = new ObjectField();
         $property = new ReflectionProperty(Album::class, 'id');
-        $field = new MappedObjectField($objectField, $property, []);
+        $field = new MappedObjectField($objectField, $property);
         $this->assertNull($field->getDescription());
 
         $objectField->description = 'A test';
-        $field = new MappedObjectField($objectField, $property, []);
+        $field = new MappedObjectField($objectField, $property);
         $this->assertEquals('A test', $field->getDescription());
     }
 
@@ -62,13 +67,18 @@ class MappedObjectFieldTest extends TestCase
     {
         $objectField = new ObjectField();
         $property = new ReflectionProperty(Album::class, 'id');
-        $field = new MappedObjectField($objectField, $property, ["type" => "integer"]);
+        $field = new MappedObjectField($objectField, $property);
+        $field->setFieldMapping(["type" => "integer"]);
         $this->assertInstanceOf(NonNull::class, $field->getType());
         $this->assertInstanceOf(IntType::class, $field->getType()->getOfType());
-        $field = new MappedObjectField($objectField, $property, ["type" => "string"]);
+
+        $field = new MappedObjectField($objectField, $property);
+        $field->setFieldMapping(["type" => "string"]);
         $this->assertInstanceOf(NonNull::class, $field->getType());
         $this->assertInstanceOf(StringType::class, $field->getType()->getOfType());
-        $field = new MappedObjectField($objectField, $property, ["type" => "integer", "id" => true]);
+
+        $field = new MappedObjectField($objectField, $property);
+        $field->setFieldMapping(["type" => "integer", "id" => true]);
         $this->assertInstanceOf(NonNull::class, $field->getType());
         $this->assertInstanceOf(IDType::class, $field->getType()->getOfType());
 
@@ -77,17 +87,5 @@ class MappedObjectFieldTest extends TestCase
         $field = new MappedObjectField($objectField, $property, []);
         $this->assertInstanceOf(NonNull::class, $field->getType());
         $this->assertInstanceOf(StringType::class, $field->getType()->getOfType());
-    }
-
-    public function testIsFilterable()
-    {
-        $objectField = new ObjectField();
-        $property = new ReflectionProperty(Album::class, 'id');
-        $field = new MappedObjectField($objectField, $property, []);
-        $this->assertFalse($field->isFilterable());
-
-        $objectField->filterable = true;
-        $field = new MappedObjectField($objectField, $property, []);
-        $this->assertTrue($field->isFilterable());
     }
 }

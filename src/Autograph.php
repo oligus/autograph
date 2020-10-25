@@ -61,7 +61,7 @@ class Autograph
             $this->variables
         );
 
-        $returnString = json_encode($result->toArray(DebugFlag::INCLUDE_TRACE));
+        $returnString = json_encode($result->toArray(DebugFlag::INCLUDE_DEBUG_MESSAGE|DebugFlag::INCLUDE_TRACE));
 
         if (is_bool($returnString)) {
             return null;

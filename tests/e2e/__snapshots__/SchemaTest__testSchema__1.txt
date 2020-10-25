@@ -12,6 +12,7 @@ type Query {
 type Track {
   id: ID!
   name: String!
+  album: album
   composer: String!
   milliseconds: Int!
   bytes: Int!
