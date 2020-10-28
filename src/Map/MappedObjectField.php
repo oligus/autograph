@@ -18,14 +18,14 @@ class MappedObjectField
     private ReflectionProperty $reflectionProperty;
 
     /**
-     * @var array|null
+     * @var array<mixed>
      */
-    private ?array $fieldMapping = null;
+    private array $fieldMapping = [];
 
     /**
-     * @var array|null
+     * @var array<mixed>
      */
-    private ?array $associationMapping = null;
+    private array $associationMapping = [];
 
     public function __construct(ObjectField $objectField, ReflectionProperty $reflectionProperty)
     {
@@ -33,11 +33,17 @@ class MappedObjectField
         $this->reflectionProperty = $reflectionProperty;
     }
 
+    /**
+     * @param array<mixed> $fieldMapping
+     */
     public function setFieldMapping(array $fieldMapping): void
     {
         $this->fieldMapping = $fieldMapping;
     }
 
+    /**
+     * @param array<mixed> $associationMapping
+     */
     public function setAssociationMapping(array $associationMapping): void
     {
         $this->associationMapping = $associationMapping;

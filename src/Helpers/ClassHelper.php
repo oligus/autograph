@@ -31,6 +31,11 @@ class ClassHelper
         if ($reflection->hasProperty($property)) {
             $reflectionProperty = $reflection->getProperty($property);
             $reflectionProperty->setAccessible(true);
+
+            if (!$reflectionProperty->isInitialized($class)) {
+                return null;
+            }
+
             return $reflectionProperty->getValue($class);
         }
 

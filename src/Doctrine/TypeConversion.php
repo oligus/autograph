@@ -26,12 +26,12 @@ use GraphQL\Type\Definition\Type;
 class TypeConversion
 {
     /**
-     * @var array{}|array{fieldName:string,type:string,scale:integer,length:?int,unique:bool,nullable:bool,precision:int,columnName:string,id:bool}
+     * @var array<mixed>
      */
-    private array $fieldMapping;
+    private array $fieldMapping = [];
 
     /**
-     * @param array{}|array{fieldName:string,type:string,scale:integer,length:?int,unique:bool,nullable:bool,precision:int,columnName:string,id:bool} $fieldMapping
+     * @param array<mixed> $fieldMapping
      */
     public function __construct(array $fieldMapping)
     {

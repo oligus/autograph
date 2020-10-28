@@ -21,12 +21,17 @@ class Query extends ObjectType
             'description' => 'Query fields',
             'fields' => function (): array {
                 return [
+                    'album' => (new Fields\Album())->getField(),
+                    'albums' => (new Fields\Albums())->getField(),
                     'artist' => (new Fields\Artist())->getField(),
                     'artists' => (new Fields\Artists())->getField(),
                     'genre' => (new Fields\Genre())->getField(),
                     'genres' => (new Fields\Genres())->getField(),
                     'mediaType' => (new Fields\MediaType())->getField(),
-                    'mediaTypes' => (new Fields\MediaTypes())->getField()
+                    'mediaTypes' => (new Fields\MediaTypes())->getField(),
+                    'playlist' => (new Fields\Playlist())->getField(),
+                    'playlists' => (new Fields\Playlists())->getField(),
+                    'track' => (new Fields\Track())->getField(),
                 ];
             }
         ]);
