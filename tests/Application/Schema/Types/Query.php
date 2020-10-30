@@ -25,6 +25,9 @@ class Query extends ObjectType
                     'albums' => (new Fields\Albums())->getField(),
                     'artist' => (new Fields\Artist())->getField(),
                     'artists' => (new Fields\Artists())->getField(),
+                    'customer' => (new Fields\Customer())->getField(),
+                    'employee' => (new Fields\Employee())->getField(),
+                    'employees' => (new Fields\Employees())->getField(),
                     'genre' => (new Fields\Genre())->getField(),
                     'genres' => (new Fields\Genres())->getField(),
                     'mediaType' => (new Fields\MediaType())->getField(),
@@ -32,6 +35,7 @@ class Query extends ObjectType
                     'playlist' => (new Fields\Playlist())->getField(),
                     'playlists' => (new Fields\Playlists())->getField(),
                     'track' => (new Fields\Track())->getField(),
+                    'tracks' => (new Fields\Tracks())->getField(),
                 ];
             }
         ]);

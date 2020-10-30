@@ -2,11 +2,9 @@
 
 namespace Autograph\Tests\Application\Schema\Types;
 
+use Autograph\Tests\Application\Schema\Fields;
 use Autograph\Tests\Application\TypeManager;
 use GraphQL\Type\Definition\ObjectType;
-use Autograph\Tests\Application\Schema\Fields\Album;
-use Autograph\Tests\Application\Schema\Fields\MediaType;
-use Autograph\Tests\Application\Schema\Fields\Genre;
 
 /**
  * Class Track
@@ -26,9 +24,10 @@ class Track extends ObjectType
                     'milliseconds' => TypeManager::string(),
                     'bytes' => TypeManager::string(),
                     'unitPrice' => TypeManager::string(),
-                    'album' => (new Album())->getField(),
-                    'mediaType' => (new MediaType())->getField(),
-                    'genre' => (new Genre())->getField()
+                    'album' => (new Fields\Album())->getField(),
+                    'mediaType' => (new Fields\MediaType())->getField(),
+                    'genre' => (new Fields\Genre())->getField(),
+                    'playlists' => (new Fields\Playlists())->getField()
                 ];
             }
         ];

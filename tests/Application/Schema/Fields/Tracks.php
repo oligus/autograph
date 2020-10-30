@@ -3,20 +3,20 @@
 namespace Autograph\Tests\Application\Schema\Fields;
 
 use Autograph\GraphQL\AppContext;
-use Autograph\Tests\Application\Entities\Playlist as PlaylistEntity;
+use Autograph\Tests\Application\Entities\Track as TrackEntity;
 use Autograph\Tests\Application\TypeManager;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
- * Class Playlists
+ * Class Tracks
  * @package Autograph\Tests\Application\Schema\Fields
  */
-class Playlists
+class Tracks
 {
     public static function getField(): array
     {
         return [
-            'type' => TypeManager::get('Playlists'),
+            'type' => TypeManager::get('Tracks'),
             'args' => [
                 'first' => [
                     'type' => TypeManager::int()
@@ -27,12 +27,12 @@ class Playlists
                 ]
             ],
             'resolve' => function ($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo) {
-                if (!empty($value) && array_key_exists('playlists', $value)) {
-                    $entities = $value['playlists'];
+                if (!empty($value) && array_key_exists('tracks', $value)) {
+                    $entities = $value['tracks'];
                 } else {
                     $em = $appContext->getEm();
                     $qb = $em->createQueryBuilder();
-                    $qb->select('t')->from(PlaylistEntity::class, 't');
+                    $qb->select('t')->from(TrackEntity::class, 't');
 
                     if (array_key_exists('first', $args)) {
                         $qb->setMaxResults($args['first']);
@@ -48,11 +48,11 @@ class Playlists
 
                 $nodes = [];
 
-                /** @var PlaylistEntity $playlist */
-                foreach ($entities as $playlist) {
-                    $resolveFn = (new Playlist())->getField()['resolve'];
+                /** @var TrackEntity $track */
+                foreach ($entities as $track) {
+                    $resolveFn = (new Track())->getField()['resolve'];
                     $nodes[] = $resolveFn(
-                        ['playlist' => $playlist],
+                        ['track' => $track],
                         [],
                         $appContext,
                         $resolveInfo
