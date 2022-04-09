@@ -1,0 +1,25 @@
+{
+    "name": "oligus/autograph",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Autograph\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Autograph\\Tests\\": "tests/src",
+            "Autograph\\Tests\\Fixtures\\": "tests/fixtures"
+        }
+    },
+    "authors": [
+        {
+            "name": "oligus",
+            "email": "oli.gustafsson@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
